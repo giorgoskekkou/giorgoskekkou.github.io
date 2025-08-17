@@ -4154,3 +4154,10 @@ input, select, textarea {
 		}
 
 	}
+
+/* Extra added by me */
+.links-inline {
+  display: flex;
+  gap: 1em; /* space between the links */
+  align-items: center;
+}
