@@ -1,0 +1,203 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Projects - Giorgos Kekkou</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link rel="icon" type="image/x-icon" href="../files/favicon.ico" />
+    <noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+    <style>
+      /* Minor additions */
+      .filters { display:flex; flex-wrap:wrap; gap:.6rem; margin:0 0 2rem; }
+      .filters button {
+        background:#2e3141; color:#fff; border:0; padding:.55rem 1rem;
+        cursor:pointer; font-size:.85rem; letter-spacing:.05em;
+        border-radius:4px; transition:background .25s;
+      }
+      .filters button.active, .filters button:hover { background:#f2849e; }
+      .projects-grid {
+        display:grid;
+        gap:2.2rem;
+      }
+      @media (min-width: 680px) {
+        .projects-grid {
+          grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+        }
+      }
+      .project-card {
+        background:#2e3141;
+        padding:1.5rem 1.4rem 1.3rem;
+        border-radius:6px;
+        position:relative;
+        display:flex;
+        flex-direction:column;
+        gap:.7rem;
+      }
+      .project-card h3 { margin:0 0 .25rem; font-size:1.15rem; }
+      .project-meta { font-size:.7rem; text-transform:uppercase; letter-spacing:.15em; color:#bbb; }
+      .project-tags { font-size:.65rem; display:flex; flex-wrap:wrap; gap:.35rem; }
+      .project-tags span {
+        background:#44495d; padding:.25rem .5rem; border-radius:3px; letter-spacing:.05em;
+      }
+      .hidden { display:none !important; }
+    </style>
+  </head>
+  <body class="is-preload">
+    <div id="page-wrapper">
+
+      <!-- Header -->
+      <header id="header">
+        <h1><a href="../index.html">Giorgos Kekkou</a></h1>
+        <nav>
+          <a href="#menu">Menu</a>
+        </nav>
+      </header>
+
+      <!-- Menu -->
+      <nav id="menu">
+        <div class="inner">
+          <h2>Menu</h2>
+          <ul class="links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="index.html">Projects</a></li>
+          </ul>
+          <a href="#" class="close">Close</a>
+        </div>
+      </nav>
+
+      <!-- Wrapper -->
+      <section id="wrapper">
+        <header>
+          <div class="inner">
+            <h2>Projects</h2>
+            <p>Collection of academic, research, software, hardware and personal builds.</p>
+          </div>
+        </header>
+
+        <div class="wrapper">
+          <div class="inner">
+            
+            <!-- Filters -->
+            <div class="filters" id="filters">
+              <button data-filter="all" class="active">All</button>
+              <button data-filter="research">Research</button>
+              <button data-filter="software">Software</button>
+              <button data-filter="hardware">Hardware</button>
+              <button data-filter="data">Data / ML</button>
+              <button data-filter="security">Security</button>
+              <button data-filter="web">Web</button>
+              <button data-filter="other">Other</button>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="projects-grid" id="projectsGrid">
+              
+              <!-- Example Project Cards (duplicate / edit) -->
+              <article class="project-card" data-category="research data">
+                <div class="project-meta">Research · 2025</div>
+                <h3>Cyber Incident Monitoring Dashboard</h3>
+                <p>Interactive dashboard with SQL backend for 200K+ network security records enabling prioritized incident triage.</p>
+                <div class="project-tags">
+                  <span>Python</span><span>Flask</span><span>SQL</span><span>Visualization</span>
+                </div>
+                <a href="../projects/ctid.html" class="button small">Details</a>
+              </article>
+
+              <article class="project-card" data-category="software security">
+                <div class="project-meta">Software · 2025</div>
+                <h3>Workflow Function Converter</h3>
+                <p>Tool that converts serverless workflow specs into executable function orchestrations.</p>
+                <div class="project-tags">
+                  <span>TypeScript</span><span>Serverless</span><span>JSON</span>
+                </div>
+                <a href="https://github.com/giorgoskekkou/ServerlessWorkflowFunctionConverter" class="button small">Code</a>
+              </article>
+
+              <article class="project-card" data-category="hardware software">
+                <div class="project-meta">Hardware · 2024</div>
+                <h3>Embedded Sensor Node</h3>
+                <p>Low-power microcontroller platform collecting environmental metrics with SPI sensor stack.</p>
+                <div class="project-tags">
+                  <span>C</span><span>ARM MCU</span><span>Low Power</span>
+                </div>
+              </article>
+
+              <article class="project-card" data-category="data software">
+                <div class="project-meta">Data / ML · 2024</div>
+                <h3>Traffic Anomaly Detector</h3>
+                <p>Pattern mining and anomaly scoring on network flow sequences for early intrusion hints.</p>
+                <div class="project-tags">
+                  <span>Python</span><span>Pandas</span><span>Scikit-Learn</span>
+                </div>
+              </article>
+
+              <article class="project-card" data-category="web software">
+                <div class="project-meta">Web · 2023</div>
+                <h3>Personal Portfolio Site</h3>
+                <p>Responsive static site (this one) customized from HTML5 UP Solid State template.</p>
+                <div class="project-tags">
+                  <span>HTML</span><span>CSS</span><span>JS</span><span>Responsive</span>
+                </div>
+              </article>
+
+              <article class="project-card" data-category="security research">
+                <div class="project-meta">Security · 2023</div>
+                <h3>Malware Signature Classifier</h3>
+                <p>Feature extraction and supervised classification of labeled malware families.</p>
+                <div class="project-tags">
+                  <span>Python</span><span>ML</span><span>Security</span>
+                </div>
+              </article>
+
+              <article class="project-card" data-category="other">
+                <div class="project-meta">Other · 2022</div>
+                <h3>Automation Scripts Pack</h3>
+                <p>Collection of utility scripts streamlining local development and backups.</p>
+                <div class="project-tags">
+                  <span>Bash</span><span>PowerShell</span>
+                </div>
+              </article>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <section id="footer">
+        <div class="inner">
+          <p>&copy; Giorgos Kekkou.</p>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/jquery.scrollex.min.js"></script>
+    <script src="../assets/js/browser.min.js"></script>
+    <script src="../assets/js/breakpoints.min.js"></script>
+    <script src="../assets/js/util.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script>
+      // Category filter
+      const buttons = document.querySelectorAll('.filters button');
+      const cards = document.querySelectorAll('.project-card');
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          buttons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const filter = btn.dataset.filter;
+          cards.forEach(c => {
+            if (filter === 'all' || c.dataset.category.split(' ').includes(filter)) {
+              c.classList.remove('hidden');
+            } else {
+              c.classList.add('hidden');
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

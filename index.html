@@ -12,6 +12,48 @@
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<link rel="icon" type="image/x-icon" href="/files/favicon.ico">
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<style>
+			.project-card {
+				background:#2e3141;
+				padding:1.5rem 1.4rem 1.3rem;
+				border-radius:6px;
+				position:relative;
+				display:flex;
+				flex-direction:column;
+				gap:.7rem;
+			}
+			.project-card h3 { margin:0 0 .25rem; font-size:1.15rem; }
+			.project-meta { font-size:.7rem; text-transform:uppercase; letter-spacing:.15em; color:#bbb; }
+			.project-tags { font-size:.65rem; display:flex; flex-wrap:wrap; gap:.35rem; }
+			.project-tags span {
+				background:#44495d; padding:.25rem .5rem; border-radius:3px; letter-spacing:.05em;
+			}
+
+			#banner .banner-bio {
+			  display: flex;
+			  align-items: flex-start;
+			  gap: 1.2rem;
+			}
+			#banner .banner-bio img {
+			  display: block;
+			}
+			#banner .banner-bio .bio-text {
+			  font-size: 1.4rem;
+			  line-height: 1.6;
+			  margin: 0;
+			}
+			/* Stack vertically on narrow screens */
+			@media (max-width: 640px) {
+			  #banner .banner-bio {
+				flex-direction: column;
+				align-items: center;
+				text-align: center;
+			  }
+			  #banner .banner-bio .bio-text {
+				font-size: 1.3rem; /* optional tweak */
+			  }
+			}
+		</style>
 	</head>
 	<body class="is-preload">
 
@@ -54,21 +96,47 @@
 							<h2>Giorgos Kekkou</h2>
 							<!-- <div class="links-inline"> -->
 							<div>
-								<div>
+								<div class="banner-bio">
 									<!-- <img src="images/20250702_204605 NEW.jpg" height="376" width="314"> -->
 									<!-- <img src="images/20250702_204605 NEW.jpg" height="250" width="210"> -->
-									<img src="images/profile.jpg" height="250" width="210">
+									<img src="images/profile.jpg" height="250" width="210" alt="Profile">
+									<div class="bio-text">
+										<!-- Short Bio:  -->
+										I am a Computer Engineer passionate about bridging the gap between hardware and software.
+										My main research interest is Computer Architecture, with a focus on CPU and GPU design.
+										I enjoy working on projects and exploring new research directions to enrich my knowledge about the whole computer stack.
+										Currently, I am working as a Research Engineer at KIOS CoE, where I focus on the design of Machine Learning models for VLSI Testing problems.
+										<br><br>
+										<!-- Short Bio: I am a Computer Engineer, seeking to expand my skills and gain experience in my field. 
+										I am interested in both software and hardware interaction.
+										I am currently working as a Research Engineer at KIOS. <br><br> -->
+									</div>
+									<br><br>
 								</div>
 								<div>
-									<p>
-										Short Bio: I am a Computer Engineer, seeking to expand my skills and gain experience in my field. 
-										I am interested in both software and hardware interaction. <br> 
-										I am currently working as a Research Engineer at KIOS.
-									</p>
+									<div style="font-size:1.3rem; line-height:1.6;">
+										<ul><strong><em>Research Interests:</em></strong>
+											<li>Computer Architecture: Parallelism, Multicore, Multithreaded</li>
+											<li>Operating Systems, Virtual Memory, Compilers</li>
+											<li>VLSI Design & Testing</li>
+										</ul>
+										<div>
+											<strong><em>Research Vision:</em></strong><br>
+											<!-- My vision is to design secure and intelligent embedded systems that seamlessly integrate hardware and software to empower the next generation of technology. -->
+											My research aims to design hardware that can meet the intense demands of high-performance computing.
+											I am focused on creating multicore and multithreaded architectures through hardware/software co-design. 
+											<br><br>
+										</div>
+										<!-- <ul>Other Interests:
+											<li>GPU Acceleration</li>
+											<li>Machine Learning</li>
+										</ul> -->
+									</div>
+
 									<p>
 										<!-- <a href="files/GiorgosKekkou_CV.pdf">View short CV/Resume</a> <br> -->
 										<!-- <a href="files/AcademicCV.pdf">View full CV/Resume</a>  -->
-										<a href="files/AcademicCV.pdf">View full CV</a> 
+										<a href="files/GiorgosKekkou_CV.pdf" style="font-size: 1.3rem;">View full CV</a> 
 									</p>
 								</div>
 							</div>
@@ -82,8 +150,8 @@
 					<section id="wrapper">
 
 						<!-- One: Experience -->
-							<section id="experience" class="wrapper spotlight style1">
-								<div class="inner">
+							<section id="experience" class="wrapper spotlight style1" style="padding-left: 4rem;">
+								<div class="inner" style="text-align: left;">
 									<a class="image"><img src="images/experience.jpg" alt="" /></a>
 									<!-- <a class="image"><img src="images/experience.jpg" height="300" width="400" alt="" /></a> -->
 									<div class="content">
@@ -93,24 +161,28 @@
 												margin: 0 0 0.75rem; /* bottom spacing */
 												line-height: 1.4;
 											}
+											
 										</style>
 										<h2 class="major">Experience</h2>
-										<p>
-											Teaching Assistant (September 2025 - Present) <br>
-											University of Cyprus, ECE Department, Nicosia, Cyprus
-										</p>
-										<p>
-											Research Engineer (July 2025 - Present) <br>
-											KIOS Research and Innovation Center of Excellence, Nicosia, Cyprus
-										</p>
-										<p>
-											Summer Research Intern (June 2024 - July 2024) <br>
-											Texas A&M University, College Station, Texas, United States
-										</p>
-										<p>
-											QA Automation Engineer Intern (June 2023 - August 2023) <br>
-											HF Markets, Larnaca, Cyprus	
-										</p>
+										<!-- <div style="text-align: left;padding-left: 4rem;"> -->
+										<div>
+											<p>
+												Teaching Assistant (September 2025 - Present) <br>
+												University of Cyprus, ECE Department, Nicosia, Cyprus
+											</p>
+											<p>
+												Research Engineer (July 2025 - Present) <br>
+												KIOS Research and Innovation Center of Excellence, Nicosia, Cyprus
+											</p>
+											<p>
+												Summer Research Intern (June 2024 - July 2024) <br>
+												Texas A&M University, College Station, Texas, United States
+											</p>
+											<p>
+												QA Automation Engineer Intern (June 2023 - August 2023) <br>
+												HF Markets, Larnaca, Cyprus	
+											</p>
+										</div>
 
 										<!-- <a href="#" class="special">Learn more</a> -->
 									</div>
@@ -154,18 +226,21 @@
 							</section>
 
 							<!-- Three: Skills -->
-							<section id="skills" class="wrapper spotlight style3">
-								<div class="inner">
+							<section id="skills" class="wrapper spotlight style3"  style="padding-left: 4rem;">
+								<div class="inner" style="text-align: left;">
 									<a class="image"><img src="images/skills.png" alt="" /></a>
 									<div class="content">
 										<h2 class="major">Skills</h2>
-										<p>
-											Programming Languages: C/C++, Python, Java <br>
-											Programming Concepts: OOP, Multiprocessing, Multithreading <br>
-											Developer Tools: Linux, Bash, Git/GitHub, Makefile, Docker, CI/CD Pipelines <br>
-											Web Technologies: Selenium WebDriver, Flask, Bootstrap <br>
+										<div>
+											<p>
+												Programming Languages: C/C++, Python, Java <br>
+												Programming Concepts: OOP, Multiprocessing, Multithreading <br>
+												Developer Tools: Linux, Bash, Git/GitHub, Makefile, Docker, CI/CD Pipelines <br>
+												Web Technologies: Selenium WebDriver, Flask, Bootstrap <br>
+	
+											</p>
 
-										</p>
+										</div>
 										<!-- <a href="#" class="special">Learn more</a> -->
 									</div>
 								</div>
@@ -202,6 +277,10 @@
 											<a href="images/projects/bachelor_thesis_poster.png" class="image"><img src="images/projects/bachelor_thesis_poster.png" alt="" height="380"/></a>
 											<h3 class="major">Bachelor Thesis</h3>
 											<p>Predicting hard-to-detect faults using Machine Learning</p>
+											<div class="project-tags">
+												<span>C++</span><span>Python</span><span>Machine Learning</span><span>Simulator Development</span>
+											</div>
+											<br>
 											<div class="links-inline">
 												<!-- <a href="files/Bachelor_Thesis_Georgios_Kekkou.pdf" class="special">Learn more</a> -->
 												<a href="images/projects/bachelor_thesis_poster.png" class="special">Poster</a>
@@ -211,6 +290,10 @@
 											<a href="images/projects/texas_atm_project_preview.png" class="image"><img src="images/projects/texas_atm_project_preview.png" alt="" height="380" /></a>
 											<h3 class="major">Texas A&M Summer Internship Project</h3>
 											<p>Serverless Workflow Function Converter</p>
+											<div class="project-tags">
+												<span>Python</span><span>Serverless Commputing</span><span>Knative/Kubernetes</span>
+											</div>
+											<br>
 											<div class="links-inline">
 												<a href="https://github.com/giorgoskekkou/ServerlessWorkflowFunctionConverter" class="special">Source Code</a>
 												<a href="images/projects/texas_atm_project_poster.png" class="special">Poster</a>
@@ -220,12 +303,20 @@
 											<a class="image"><img src="images/projects/software_engineering_project.PNG" alt="" /></a>
 											<h3 class="major">Software Engineering Project</h3>
 											<p>Tire Service on the spot</p>
+											<div class="project-tags">
+												<span>Web Development</span><span>Python</span><span>Flask</span><span>SQLite</span>
+											</div>
+											<br>
 											<a href="/projects/tire.html" class="special">Learn more</a>
 										</article>
 										<article>
 											<a class="image"><img src="images/projects/programming_principles_project.PNG" alt="" /></a>
 											<h3 class="major">Programming Principles Project</h3>
 											<p>Cyber Threat Incident Dashboard (CTID)</p>
+											<div class="project-tags">
+												<span>OOP</span><span>GUI</span><span>Java</span><span>MySQL</span>
+											</div>
+											<br>
 											<a href="/projects/ctid.html" class="special">Learn more</a>
 										</article>
 										<!-- <article>
@@ -236,7 +327,7 @@
 										</article> -->
 									</section>
 									<ul class="actions">
-										<!-- <li><a href="" class="button">Browse All</a></li> -->
+										<!-- <li><a href="view_projects.html" class="button">Browse All</a></li> -->
 									</ul>
 								</div>
 							</section>
@@ -247,7 +338,7 @@
 					<section id="footer">
 						<div class="inner">
 							<h2 class="major">Contact</h2>
-							<p>Feel free to reach out to me via one of the following ways</p>
+							<p>Feel free to reach out to me via one of the following ways.</p>
 							<!-- <form method="post" action="#">
 								<div class="fields">
 									<div class="field">
@@ -285,7 +376,8 @@
 								<!-- <li class="icon brands fa-instagram"><a href="#">instagram.com/untitled-tld</a></li> -->
 							</ul>
 							<ul class="copyright">
-								<li>&copy; Giorgos Kekkou</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+								<li>&copy; Giorgos Kekkou</li>
+								<!-- <li>Design: <a href="http://html5up.net">HTML5 UP</a></li> -->
 								<!-- <li>&copy; Untitled Inc. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li> -->
 							</ul>
 						</div>
