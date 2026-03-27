@@ -120,6 +120,13 @@
 				cursor: zoom-in;
 			}
 
+			#menu .links .menu-divider {
+				list-style: none;
+				margin: 0.7rem 0;
+				padding-top: 0.7rem;
+				border-top: 1px solid rgba(255, 255, 255, 0.25);
+			}
+
 			@media (max-width: 768px) {
 				.lightbox-image {
 					max-width: min(100vw, 1200px);
@@ -141,25 +148,27 @@
 				<!-- Header -->
 					<header id="header">
 						<h1><a href="../index.html">Giorgos Kekkou</a></h1>
-						<!-- <nav>
+						<nav>
 							<a href="#menu">Menu</a>
-						</nav> -->
+						</nav>
 					</header>
 
 				<!-- Menu -->
-					<!-- <nav id="menu">
+					<nav id="menu">
 						<div class="inner">
 							<h2>Menu</h2>
 							<ul class="links">
-								<li><a href="index.html">Home</a></li>
-								<li><a href="generic.html">Generic</a></li>
-								<li><a href="elements.html">Elements</a></li>
-								<li><a href="#">Log In</a></li>
-								<li><a href="#">Sign Up</a></li>
+								<li><a href="../index.html">Home</a></li>
+								<li><a href="../about/timeline.html">Timeline</a></li>
+								<li><a href="../about/research_interests.html">Research Interests</a></li>
+								<li><a href="../about/view_projects.html">View All Projects</a></li>
+								<li class="menu-divider" aria-hidden="true"></li>
+								<li><a href="./tire.html">Tire Service on the Spot</a></li>
+								<li><a href="./ctid.html">CTID</a></li>
 							</ul>
 							<a href="#" class="close">Close</a>
 						</div>
-					</nav> -->
+					</nav>
 
 				<!-- Wrapper -->
 					<section id="wrapper">
@@ -455,12 +464,12 @@
 			</div>
 
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
 			<script>
 				(function () {
 					const featureImages = Array.from(document.querySelectorAll('.features img'));
