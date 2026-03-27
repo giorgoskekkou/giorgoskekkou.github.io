@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research Interests Graph</title>
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#graph {
+  flex: 3;
+  background: #0f172a;
+}
+
+#infoPanel {
+  flex: 1;
+  background: #111827;
+  color: white;
+  padding: 20px;
+  overflow-y: auto;
+  border-left: 1px solid #1f2937;
+  transition: all 0.3s ease;
+}
+
+.fade {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.node {
+  cursor: pointer;
+  stroke: #fff;
+  stroke-width: 1.5px;
+  transition: all 0.2s ease;
+}
+
+.node:hover {
+  stroke: #38bdf8;
+  stroke-width: 3px;
+}
+
+.link {
+  fill: none;
+  stroke: #64748b;
+  stroke-opacity: 0.6;
+  stroke-width: 1.5px;
+}
+
+text {
+  fill: white;
+  font-size: 13px;
+}
+
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+  }
+  #graph {
+    height: 60%;
+  }
+  #infoPanel {
+    height: 40%;
+  }
+}
+</style>
+</head>
+<body>
+
+<svg id="graph"></svg>
+<div id="infoPanel" class="show">
+  <h2>Research Topics</h2>
+  <p>Click on a node to explore details.</p>
+</div>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+const width = window.innerWidth * 0.75;
+const height = window.innerHeight;
+
+const svg = d3.select("#graph")
+  .attr("width", width)
+  .attr("height", height)
+  .append("g")
+  .attr("transform", "translate(" + width / 2 + ",50)");
+
+const data = {
+  name: "Research Interests",
+  description: "Overview of my research interests.",
+  children: [
+    {
+      name: "AI",
+      description: "Artificial Intelligence research including ML and DL.",
+      children: [
+        { name: "Machine Learning", description: "Supervised & Unsupervised learning.",
+            children: []
+         },
+        { name: "Deep Learning", description: "Neural networks and architectures." }
+      ]
+    },
+    {
+      name: "Data Science",
+      description: "Working with data, analytics, and visualization.",
+      children: [
+        { name: "Visualization", description: "Graphs and dashboards." },
+        { name: "Statistics", description: "Statistical modeling." }
+      ]
+    },
+    {
+      name: "Networks",
+      description: "Distributed systems and communication networks.",
+      children: [
+        { name: "Security", description: "Cybersecurity and encryption." },
+        { name: "Protocols", description: "Network communication models." }
+      ]
+    }
+  ]
+};
+
+const root = d3.hierarchy(data);
+const treeLayout = d3.tree().size([width - 100, height - 150]);
+
+treeLayout(root);
+
+// Links (vertical tree)
+svg.selectAll('.link')
+  .data(root.links())
+  .enter()
+  .append('path')
+  .attr('class', 'link')
+  .attr('d', d3.linkVertical()
+    .x(d => d.x - width/2 + 50)
+    .y(d => d.y)
+  );
+
+// Nodes
+const nodes = svg.selectAll('.node')
+  .data(root.descendants())
+  .enter()
+  .append('circle')
+  .attr('class', 'node')
+  .attr('cx', d => d.x - width/2 + 50)
+  .attr('cy', d => d.y)
+  .attr('r', 12)
+  .attr('fill', '#22c55e')
+  .on('click', (event, d) => showInfo(d.data, event.target));
+
+// Labels
+svg.selectAll('.label')
+  .data(root.descendants())
+  .enter()
+  .append('text')
+  .attr('x', d => d.x - width/2 + 50)
+  .attr('y', d => d.y + 25)
+  .attr('text-anchor', 'middle')
+  .text(d => d.data.name);
+
+function showInfo(data, element) {
+  const panel = document.getElementById('infoPanel');
+
+  // Animate panel
+  panel.classList.remove('show');
+//   panel.classList.add('fade');
+
+  setTimeout(() => {
+    panel.innerHTML = `
+      <h2>${data.name}</h2>
+      <p>${data.description || 'No description available.'}</p>
+    `;
+    // panel.classList.remove('fade');
+    panel.classList.add('show');
+  }, 200);
+
+  // Node click animation
+  d3.selectAll('.node').attr('fill', '#22c55e');
+  d3.select(element)
+    .transition()
+    .duration(200)
+    .attr('r', 16)
+    .attr('fill', '#38bdf8')
+    .transition()
+    .duration(200)
+    .attr('r', 12);
+}
+
+// Resize responsiveness
+window.addEventListener('resize', () => {
+  location.reload();
+});
+</script>
+
+</body>
+</html>

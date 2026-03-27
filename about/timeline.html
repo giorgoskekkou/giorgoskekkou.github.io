@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Horizontal Yearly Timeline — Career & Education</title>
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#9aa7bf;
+      --accent1:#6ee7b7; /* education */
+      --accent2:#7cc3ff; /* career */
+      --glass: rgba(255,255,255,0.03);
+      --glass-2: rgba(255,255,255,0.02);
+      --shadow: 0 8px 30px rgba(2,6,23,0.7);
+      --ease: cubic-bezier(.2,.9,.3,1);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;background:linear-gradient(180deg,#071028 0%, #0b1220 100%);color:#e6eef8;font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial;line-height:1.4;margin:0}
+
+    header{padding:32px 28px 8px;display:flex;gap:20px;align-items:center;justify-content:space-between}
+    header h1{font-size:18px;margin:0;font-weight:600;letter-spacing:-0.2px}
+    header p{margin:0;color:var(--muted);font-size:13px}
+
+    .controls{display:flex;gap:10px;align-items:center}
+    .btn{background:var(--glass);border:1px solid rgba(255,255,255,0.03);padding:8px 12px;border-radius:10px;color:var(--muted);cursor:pointer;backdrop-filter: blur(6px);transition:all .2s var(--ease)}
+    .btn:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+    .btn.active{color: #061025;background:linear-gradient(90deg,var(--accent2),var(--accent1));border:0}
+
+    .wrap{padding:24px 16px 48px}
+    .timeline-shell{position:relative;background:linear-gradient(180deg,rgba(255,255,255,0.01), transparent);border-radius:16px;padding:40px 16px;overflow:hidden}
+
+    /* years ruler */
+    .ruler{position:relative;padding:12px 0 28px;display:flex;align-items:center}
+    .ruler-track{height:4px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.06),transparent);width:100%;border-radius:6px;position:relative}
+    .ruler-year{position:absolute;top:-28px;font-size:12px;color:var(--muted);transform:translateX(-50%);cursor:pointer}
+
+    /* timeline area */
+    .timeline{display:flex;gap:60px;align-items:flex-start;padding:40px 20px;overflow-x:auto;overflow-y:visible;scroll-behavior:smooth;position:relative;min-height:500px}
+    .timeline::-webkit-scrollbar{height:12px}
+    .timeline::-webkit-scrollbar-thumb{background:linear-gradient(90deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02));border-radius:999px}
+
+    .event{width:400px;background:linear-gradient(180deg,var(--card),rgba(8,12,18,0.95));border-radius:16px;padding:24px;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,0.05);transform-origin:center;transition:transform .22s var(--ease),box-shadow .22s var(--ease),opacity .22s}
+    .event:hover{transform:translateY(-8px) scale(1.03);box-shadow:0 20px 60px rgba(2,6,23,0.75)}
+    .event .meta{display:flex;align-items:center;gap:14px}
+    .badge{width:60px;height:60px;border-radius:12px;display:grid;place-items:center;font-weight:700;color:#021425;font-size:18px}
+    .title{font-size:20px;font-weight:600;margin:6px 0}
+    .sub{font-size:15px;color:var(--muted)}
+    .desc{margin-top:12px;font-size:15px;color:#cfe7ff;opacity:0.9;line-height:1.5}
+    .year-pill{display:inline-block;margin-top:16px;padding:8px 12px;border-radius:10px;background:var(--glass-2);font-size:14px;color:var(--muted)}
+
+    .connector{height:12px;width:12px;border-radius:50%;margin-top:16px;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+
+    .legend{display:flex;gap:12px;align-items:center;margin-left:8px}
+    .legend .item{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted)}
+    .legend .sw{width:12px;height:12px;border-radius:3px}
+
+    @media (max-width:720px){
+      header{padding:20px}
+      .timeline{gap:30px;padding:20px;min-height:400px}
+      .event{width:320px}
+    }
+
+    .fade-in{opacity:0;transform:translateY(6px) scale(.99)}
+    .fade-in.show{opacity:1;transform:none}
+
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Yearly Timeline — Career & Education</h1>
+      <p>Horizontal, year-based timeline to showcase growth. Click years, filter by type, or scroll horizontally.</p>
+    </div>
+    <div class="controls">
+      <div class="legend">
+        <div class="item"><span class="sw" style="background:var(--accent1)"></span>Education</div>
+        <div class="item"><span class="sw" style="background:var(--accent2)"></span>Career</div>
+      </div>
+      <button class="btn" id="btn-all">All</button>
+      <button class="btn" id="btn-career">Career</button>
+      <button class="btn" id="btn-edu">Education</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="timeline-shell">
+      <div class="ruler" id="ruler">
+        <div class="ruler-track" id="ruler-track"></div>
+      </div>
+      <div class="timeline" id="timeline" tabindex="0" aria-label="Horizontal timeline of events">
+        <!-- events injected by JS -->
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const events = [
+      // {year:2016, type:'education', title:'Started University', subtitle:'BSc Computer Engineering', desc:'Admitted to the Electrical and Computer Engineering program at University of Cyprus — learned fundamentals in algorithms, data structures, and web development.'},
+      {year:2020, type:'education', title:'High School Graduation', subtitle:'Lyceum Diploma', desc:'Grade: 19.33/20 (Excellent), Focus: Maths, ...'},
+      {year:2021, type:'education', title:'Started University', subtitle:'BSc Computer Engineering', desc:'Admitted to the Electrical and Computer Engineering program at University of Cyprus — received 1st position at Pancyprian Exams'},
+      {year:2023, type:'career', title:'Internship', subtitle:'Quality Assurance (QA) Automation Intern', desc:'Worked on UI components, accessibility fixes and improving load times.'},
+      // {year:2019, type:'education', title:'Study Abroad', subtitle:'Semester in Berlin', desc:'Exposed to international teams and industry projects.'},
+      // {year:2020, type:'career', title:'Junior Developer', subtitle:'Full-time at Acme Corp', desc:'Joined as a frontend dev building customer dashboards; focused on performance and testing.'},
+      // {year:2022, type:'career', title:'Senior Developer', subtitle:'Led small team', desc:'Took ownership of a product area and mentored juniors.'},
+      // {year:2023, type:'education', title:'Professional Certificate', subtitle:'UX & Product Design', desc:'Short course on product thinking and user-centered design.'},
+      // {year:2024, type:'career', title:'Engineering Manager', subtitle:'Leading cross-functional squad', desc:'Transitioned into management while remaining technically hands-on.'}
+    ];
+
+    const timeline = document.getElementById('timeline');
+    const ruler = document.getElementById('ruler');
+    const btnAll = document.getElementById('btn-all');
+    const btnCareer = document.getElementById('btn-career');
+    const btnEdu = document.getElementById('btn-edu');
+
+    const years = events.map(e=>e.year);
+    const minYear = Math.min(...years);
+    const maxYear = Math.max(...years);
+    const span = Math.max(5, maxYear - minYear);
+
+    function renderRuler(){
+      for(let y=minYear; y<=maxYear; y++){
+        const el = document.createElement('div');
+        el.className = 'ruler-year';
+        const pos = ((y - minYear) / span) * 100;
+        el.style.left = pos + '%';
+        el.textContent = y;
+        el.dataset.year = y;
+        el.addEventListener('click', ()=>scrollToYear(y));
+        ruler.appendChild(el);
+      }
+    }
+
+    function yearToX(year){
+      const containerWidth = Math.max(2000, window.innerWidth * 2.2); 
+      return ((year - minYear) / span) * containerWidth;
+    }
+
+    function renderEvents(filterType=null){
+      timeline.innerHTML = '';
+      events.forEach((ev, idx)=>{
+        if(filterType && ev.type !== filterType) return;
+
+        const wrapper = document.createElement('div');
+        wrapper.style.position = 'absolute';
+        wrapper.style.left = yearToX(ev.year) + 'px';
+        wrapper.className = 'fade-in';
+
+        const card = document.createElement('div');
+        card.className = 'event';
+
+        const meta = document.createElement('div');
+        meta.className = 'meta';
+
+        const badge = document.createElement('div');
+        badge.className = 'badge';
+        badge.style.background = (ev.type==='education') ? 'linear-gradient(180deg,var(--accent1),rgba(122,202,170,0.9))' : 'linear-gradient(180deg,var(--accent2),rgba(125,195,255,0.95))';
+        badge.innerHTML = ev.year.toString().slice(-2);
+
+        const head = document.createElement('div');
+        const t = document.createElement('div'); t.className = 'title'; t.textContent = ev.title;
+        const s = document.createElement('div'); s.className = 'sub'; s.textContent = ev.subtitle;
+        head.appendChild(t); head.appendChild(s);
+
+        meta.appendChild(badge);
+        meta.appendChild(head);
+
+        const desc = document.createElement('div');
+        desc.className = 'desc';
+        desc.textContent = ev.desc;
+
+        const yearPill = document.createElement('div');
+        yearPill.className = 'year-pill';
+        yearPill.textContent = ev.year;
+
+        const connector = document.createElement('div');
+        connector.className = 'connector';
+        connector.style.background = (ev.type==='education') ? 'var(--accent1)' : 'var(--accent2)';
+
+        card.appendChild(meta);
+        card.appendChild(desc);
+        card.appendChild(yearPill);
+        card.appendChild(connector);
+
+        wrapper.appendChild(card);
+        timeline.appendChild(wrapper);
+
+        setTimeout(()=>{ wrapper.classList.add('show'); }, 120*idx);
+
+        card.addEventListener('click', ()=>{
+          const rect = wrapper.getBoundingClientRect();
+          const offset = rect.left + (rect.width/2) - (window.innerWidth/2);
+          timeline.scrollBy({left: offset, behavior:'smooth'});
+          card.animate([{transform:'scale(1.05)'},{transform:'scale(1)'}],{duration:320, easing:'ease-out'});
+        });
+      });
+    }
+
+    function scrollToYear(y){
+      const x = yearToX(y) - (window.innerWidth/2) + 250;
+      timeline.scrollTo({left:x,behavior:'smooth'});
+    }
+
+    function setActive(btn){[btnAll,btnCareer,btnEdu].forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
+    btnAll.addEventListener('click', ()=>{ setActive(btnAll); renderEvents(null); });
+    btnCareer.addEventListener('click', ()=>{ setActive(btnCareer); renderEvents('career'); });
+    btnEdu.addEventListener('click', ()=>{ setActive(btnEdu); renderEvents('education'); });
+
+    timeline.addEventListener('keydown', (e)=>{
+      if(e.key === 'ArrowRight') timeline.scrollBy({left:400,behavior:'smooth'});
+      if(e.key === 'ArrowLeft') timeline.scrollBy({left:-400,behavior:'smooth'});
+    });
+
+    renderRuler(); setActive(btnAll); renderEvents(null);
+
+    window.TIMELINE = { add(ev){ events.push(ev); location.reload(); }, events, minYear, maxYear };
+  </script>
+</body>
+</html>
