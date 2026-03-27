@@ -4,6 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Horizontal Yearly Timeline — Career & Education</title>
+  <link rel="stylesheet" href="../assets/css/main.css" />
+  <link rel="icon" type="image/x-icon" href="../files/favicon.ico" />
+  <noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
   <style>
     :root{
       --bg:#0f1724;
@@ -19,9 +22,11 @@
     *{box-sizing:border-box}
     html,body{height:100%;background:linear-gradient(180deg,#071028 0%, #0b1220 100%);color:#e6eef8;font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial;line-height:1.4;margin:0}
 
-    header{padding:32px 28px 8px;display:flex;gap:20px;align-items:center;justify-content:space-between}
-    header h1{font-size:18px;margin:0;font-weight:600;letter-spacing:-0.2px}
-    header p{margin:0;color:var(--muted);font-size:13px}
+    .timeline-page { margin-top: 4.25rem; }
+
+    .timeline-header{padding:32px 28px 8px;display:flex;gap:20px;align-items:center;justify-content:space-between}
+    .timeline-header h1{font-size:18px;margin:0;font-weight:600;letter-spacing:-0.2px}
+    .timeline-header p{margin:0;color:var(--muted);font-size:13px}
 
     .controls{display:flex;gap:10px;align-items:center}
     .btn{background:var(--glass);border:1px solid rgba(255,255,255,0.03);padding:8px 12px;border-radius:10px;color:var(--muted);cursor:pointer;backdrop-filter: blur(6px);transition:all .2s var(--ease)}
@@ -56,8 +61,12 @@
     .legend .item{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted)}
     .legend .sw{width:12px;height:12px;border-radius:3px}
 
+    @media (max-width:980px){
+      .timeline-page { margin-top: 3.25rem; }
+    }
+
     @media (max-width:720px){
-      header{padding:20px}
+      .timeline-header{padding:20px}
       .timeline{gap:30px;padding:20px;min-height:400px}
       .event{width:320px}
     }
@@ -67,8 +76,30 @@
 
   </style>
 </head>
-<body>
-  <header>
+<body class="is-preload">
+  <div id="page-wrapper">
+    <header id="header">
+      <h1><a href="../index.html">Giorgos Kekkou</a></h1>
+      <nav>
+        <a href="#menu">Menu</a>
+      </nav>
+    </header>
+
+    <nav id="menu">
+      <div class="inner">
+        <h2>Menu</h2>
+        <ul class="links">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="./timeline.html">Timeline</a></li>
+          <li><a href="./research_interests.html">Research Interests</a></li>
+          <li><a href="./view_projects.html">View All Projects</a></li>
+        </ul>
+        <a href="#" class="close">Close</a>
+      </div>
+    </nav>
+
+    <div class="timeline-page">
+  <header class="timeline-header">
     <div>
       <h1>Yearly Timeline — Career & Education</h1>
       <p>Horizontal, year-based timeline to showcase growth. Click years, filter by type, or scroll horizontally.</p>
@@ -94,6 +125,15 @@
       </div>
     </div>
   </main>
+    </div>
+  </div>
+
+  <script src="../assets/js/jquery.min.js"></script>
+  <script src="../assets/js/jquery.scrollex.min.js"></script>
+  <script src="../assets/js/browser.min.js"></script>
+  <script src="../assets/js/breakpoints.min.js"></script>
+  <script src="../assets/js/util.js"></script>
+  <script src="../assets/js/main.js"></script>
 
   <script>
     const events = [

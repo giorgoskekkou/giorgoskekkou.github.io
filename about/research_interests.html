@@ -1,27 +1,40 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 <title>Research Interests Graph</title>
+<link rel="stylesheet" href="../assets/css/main.css" />
+<link rel="icon" type="image/x-icon" href="../files/favicon.ico" />
+<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
 <style>
 body {
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  display: flex;
-  height: 100vh;
   overflow: hidden;
+}
+
+#page-wrapper {
+  min-height: 100vh;
+}
+
+.research-layout {
+  display: flex;
+  height: calc(100vh - 4.25rem);
+  margin-top: 4.25rem;
 }
 
 #graph {
   flex: 3;
+  min-width: 0;
+  min-height: 0;
   background: #0f172a;
 }
 
 #infoPanel {
   flex: 1;
+  min-width: 280px;
   background: #111827;
-  color: white;
+  color: #fff;
   padding: 20px;
   overflow-y: auto;
   border-left: 1px solid #1f2937;
@@ -57,131 +70,170 @@ body {
   stroke-width: 1.5px;
 }
 
-text {
-  fill: white;
+svg text {
+  fill: #fff;
   font-size: 13px;
 }
 
+@media (max-width: 980px) {
+  .research-layout {
+    margin-top: 3.25rem;
+    height: calc(100vh - 3.25rem);
+  }
+}
+
 @media (max-width: 768px) {
-  body {
+  .research-layout {
     flex-direction: column;
   }
+
   #graph {
-    height: 60%;
+    flex: 0 0 60%;
   }
+
   #infoPanel {
-    height: 40%;
+    flex: 0 0 40%;
+    min-width: 0;
+    border-left: 0;
+    border-top: 1px solid #1f2937;
   }
 }
 </style>
 </head>
-<body>
+<body class="is-preload">
 
-<svg id="graph"></svg>
-<div id="infoPanel" class="show">
-  <h2>Research Topics</h2>
-  <p>Click on a node to explore details.</p>
+<div id="page-wrapper">
+
+  <header id="header">
+    <h1><a href="../index.html">Giorgos Kekkou</a></h1>
+    <nav>
+      <a href="#menu">Menu</a>
+    </nav>
+  </header>
+
+  <nav id="menu">
+    <div class="inner">
+      <h2>Menu</h2>
+      <ul class="links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="./timeline.html">Timeline</a></li>
+        <li><a href="./research_interests.html">Research Interests</a></li>
+        <li><a href="./view_projects.html">View All Projects</a></li>
+      </ul>
+      <a href="#" class="close">Close</a>
+    </div>
+  </nav>
+
+  <div class="research-layout">
+    <svg id="graph"></svg>
+    <div id="infoPanel" class="show">
+      <h2>Research Topics</h2>
+      <p>Click on a node to explore details.</p>
+    </div>
+  </div>
+
 </div>
 
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/jquery.scrollex.min.js"></script>
+<script src="../assets/js/browser.min.js"></script>
+<script src="../assets/js/breakpoints.min.js"></script>
+<script src="../assets/js/util.js"></script>
+<script src="../assets/js/main.js"></script>
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script>
-const width = window.innerWidth * 0.75;
-const height = window.innerHeight;
+const graphElement = document.getElementById('graph');
+const graphWidth = Math.max(320, graphElement.clientWidth);
+const graphHeight = Math.max(320, graphElement.clientHeight);
 
-const svg = d3.select("#graph")
-  .attr("width", width)
-  .attr("height", height)
-  .append("g")
-  .attr("transform", "translate(" + width / 2 + ",50)");
+const svg = d3.select('#graph')
+  .attr('width', graphWidth)
+  .attr('height', graphHeight)
+  .append('g')
+  .attr('transform', 'translate(' + graphWidth / 2 + ',50)');
 
 const data = {
-  name: "Research Interests",
-  description: "Overview of my research interests.",
+  name: 'Research Interests',
+  description: 'Overview of my research interests.',
   children: [
     {
-      name: "AI",
-      description: "Artificial Intelligence research including ML and DL.",
+      name: 'AI',
+      description: 'Artificial Intelligence research including ML and DL.',
       children: [
-        { name: "Machine Learning", description: "Supervised & Unsupervised learning.",
-            children: []
-         },
-        { name: "Deep Learning", description: "Neural networks and architectures." }
+        {
+          name: 'Machine Learning',
+          description: 'Supervised & Unsupervised learning.',
+          children: []
+        },
+        { name: 'Deep Learning', description: 'Neural networks and architectures.' }
       ]
     },
     {
-      name: "Data Science",
-      description: "Working with data, analytics, and visualization.",
+      name: 'Data Science',
+      description: 'Working with data, analytics, and visualization.',
       children: [
-        { name: "Visualization", description: "Graphs and dashboards." },
-        { name: "Statistics", description: "Statistical modeling." }
+        { name: 'Visualization', description: 'Graphs and dashboards.' },
+        { name: 'Statistics', description: 'Statistical modeling.' }
       ]
     },
     {
-      name: "Networks",
-      description: "Distributed systems and communication networks.",
+      name: 'Networks',
+      description: 'Distributed systems and communication networks.',
       children: [
-        { name: "Security", description: "Cybersecurity and encryption." },
-        { name: "Protocols", description: "Network communication models." }
+        { name: 'Security', description: 'Cybersecurity and encryption.' },
+        { name: 'Protocols', description: 'Network communication models.' }
       ]
     }
   ]
 };
 
 const root = d3.hierarchy(data);
-const treeLayout = d3.tree().size([width - 100, height - 150]);
+const treeLayout = d3.tree().size([graphWidth - 100, graphHeight - 150]);
 
 treeLayout(root);
 
-// Links (vertical tree)
 svg.selectAll('.link')
   .data(root.links())
   .enter()
   .append('path')
   .attr('class', 'link')
   .attr('d', d3.linkVertical()
-    .x(d => d.x - width/2 + 50)
-    .y(d => d.y)
+    .x((d) => d.x - graphWidth / 2 + 50)
+    .y((d) => d.y)
   );
 
-// Nodes
-const nodes = svg.selectAll('.node')
+svg.selectAll('.node')
   .data(root.descendants())
   .enter()
   .append('circle')
   .attr('class', 'node')
-  .attr('cx', d => d.x - width/2 + 50)
-  .attr('cy', d => d.y)
+  .attr('cx', (d) => d.x - graphWidth / 2 + 50)
+  .attr('cy', (d) => d.y)
   .attr('r', 12)
   .attr('fill', '#22c55e')
   .on('click', (event, d) => showInfo(d.data, event.target));
 
-// Labels
 svg.selectAll('.label')
   .data(root.descendants())
   .enter()
   .append('text')
-  .attr('x', d => d.x - width/2 + 50)
-  .attr('y', d => d.y + 25)
+  .attr('x', (d) => d.x - graphWidth / 2 + 50)
+  .attr('y', (d) => d.y + 25)
   .attr('text-anchor', 'middle')
-  .text(d => d.data.name);
+  .text((d) => d.data.name);
 
 function showInfo(data, element) {
   const panel = document.getElementById('infoPanel');
 
-  // Animate panel
   panel.classList.remove('show');
-//   panel.classList.add('fade');
 
   setTimeout(() => {
-    panel.innerHTML = `
-      <h2>${data.name}</h2>
-      <p>${data.description || 'No description available.'}</p>
-    `;
-    // panel.classList.remove('fade');
+    panel.innerHTML =
+      '<h2>' + data.name + '</h2>' +
+      '<p>' + (data.description || 'No description available.') + '</p>';
     panel.classList.add('show');
   }, 200);
 
-  // Node click animation
   d3.selectAll('.node').attr('fill', '#22c55e');
   d3.select(element)
     .transition()
@@ -193,8 +245,7 @@ function showInfo(data, element) {
     .attr('r', 12);
 }
 
-// Resize responsiveness
-window.addEventListener('resize', () => {
+window.addEventListener('resize', function () {
   location.reload();
 });
 </script>
