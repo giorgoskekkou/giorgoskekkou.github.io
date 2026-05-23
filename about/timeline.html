@@ -34,7 +34,7 @@
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 16px;
-      padding: 32px 28px 20px;
+      padding: 18px 28px 10px;
     }
     .tl-header h1 { font-size: 20px; font-weight: 600; letter-spacing: -0.3px; }
     .tl-header p  { margin-top: 5px; color: var(--muted); font-size: 14px; }
@@ -67,7 +67,7 @@
     .tl-scroll {
       overflow-x: auto;
       overflow-y: hidden;
-      padding: 0 28px 40px;
+      padding: 8px 28px 4px;
       -webkit-overflow-scrolling: touch;
     }
     .tl-scroll::-webkit-scrollbar        { height: 5px; }
@@ -138,7 +138,7 @@
       position: absolute;
       background: var(--card-bg);
       border-radius: 14px;
-      padding: 18px 20px;
+      padding: 14px 16px;
       border: 1px solid rgba(255,255,255,0.06);
       box-shadow: var(--shadow);
       opacity: 0;
@@ -175,7 +175,7 @@
       letter-spacing: 0.6px;
       padding: 3px 10px;
       border-radius: 20px;
-      margin-bottom: 11px;
+      margin-bottom: 8px;
       color: #031220;
     }
     .card-title { font-size: 15px; font-weight: 600; margin-bottom: 4px; line-height: 1.35; }
@@ -184,8 +184,8 @@
 
     @media (max-width: 980px) { .timeline-page { margin-top: 3.25rem; } }
     @media (max-width: 680px) {
-      .tl-header { padding: 20px 16px 14px; }
-      .tl-scroll  { padding: 0 14px 28px; }
+      .tl-header { padding: 14px 16px 8px; }
+      .tl-scroll  { padding: 0 14px 16px; }
     }
   </style>
 </head>
@@ -217,7 +217,7 @@
       <header class="tl-header">
         <div>
           <h1>Career &amp; Education Timeline</h1>
-          <p>Scroll horizontally &middot; filter by type &middot; click a year to jump</p>
+          <p>Scroll horizontally &middot; filter by type</p>
         </div>
         <div class="controls">
           <div class="legend">
@@ -253,49 +253,49 @@
     /* ── Event data ────────────────────────────────────────── */
     const ALL_EVENTS = [
       {
-        year: 2020, type: 'education',
+        year: 2020, type: 'education', place: 'down',
         title: 'High School Graduation',
         sub:   'Lyceum Diploma',
         desc:  'Grade 19.33 / 20 (Excellent). Focus: Mathematics & Sciences.'
       },
       {
-        year: 2021, type: 'education',
+        year: 2021, type: 'education', place: 'up',
         title: 'Started University',
         sub:   'BSc Computer Engineering — UCY',
         desc:  'Admitted to Electrical & Computer Engineering at the University of Cyprus. Achieved 1st place in the Pancyprian Examinations.'
       },
       {
-        year: 2023, type: 'career',
+        year: 2023, type: 'career', place: 'down',
         title: 'Internship',
         sub:   'QA Automation Intern — Summer 2023',
         desc:  'Built automated UI tests, resolved accessibility issues, and improved load-time metrics for production web applications.'
       },
       {
-        year: 2024, type: 'career',
+        year: 2024, type: 'career', place: 'up',
         title: 'Internship',
         sub:   'Summer 2024',
         desc:  'Second professional internship with deeper involvement in engineering workflows and test infrastructure.'
       },
       {
-        year: 2025, type: 'education',
+        year: 2025, type: 'education', place: 'down',
         title: 'Completed Bachelor Degree',
         sub:   'BSc Computer Engineering — May 2025',
         desc:  'Graduated from the University of Cyprus with a BSc in Electrical & Computer Engineering.'
       },
       {
-        year: 2025, type: 'career',
+        year: 2025, type: 'career', place: 'up',
         title: 'Current Role',
         sub:   'July 2025 – Present',
         desc:  'Full-time professional role — currently active and ongoing.'
       },
       {
-        year: 2025, type: 'career',
+        year: 2025, type: 'career', place: 'down',
         title: 'Past Position',
         sub:   'September – December 2025',
         desc:  'Short-term career engagement completed in December 2025.'
       },
       // {
-      //   year: 2026, type: 'education',
+      //   year: 2026, type: 'education', place: 'up',
       //   title: 'Starting MSc',
       //   sub:   'September 2026',
       //   desc:  'Beginning a Master of Science degree — continuing academic growth after professional experience.'
@@ -309,17 +309,17 @@
     const PAD_X     = 80;     // horizontal padding each side
 
     // Vertical geometry — all y values are from track top
-    const TOP_PAD   = 36;     // breathing room above above-cards
-    const CARD_AREA = 240;    // vertical space reserved per card section (≥ max card height)
-    const CONN_H    = 48;     // connector length (card edge → dot edge)
+    const TOP_PAD   = 22;     // breathing room above above-cards
+    const CARD_AREA = 225;    // vertical space reserved per card section (≥ max card height)
+    const CONN_H    = 34;     // connector length (card edge → dot edge)
     const DOT_R     = 7;      // event dot radius (px)
     const TICK_R    = 4;      // year-tick dot radius (CSS: 8px diameter)
 
     // The center line y-coordinate — everything aligns to this
-    const CENTER_Y  = TOP_PAD + CARD_AREA + CONN_H + DOT_R; // 36+240+48+7 = 331
-    const ABOVE_BTM = CENTER_Y - DOT_R - CONN_H;            // 331-7-48 = 276
-    const BELOW_TOP = CENTER_Y + DOT_R + CONN_H;            // 331+7+48 = 386
-    const TRACK_H   = BELOW_TOP + CARD_AREA + TOP_PAD;      // 386+240+36 = 662
+    const CENTER_Y  = TOP_PAD + CARD_AREA + CONN_H + DOT_R; // 22+225+34+7 = 288
+    const ABOVE_BTM = CENTER_Y - DOT_R - CONN_H;            // 288-7-34 = 247
+    const BELOW_TOP = CENTER_Y + DOT_R + CONN_H;            // 288+7+34 = 329
+    const TRACK_H   = BELOW_TOP + CARD_AREA + TOP_PAD;      // 329+225+22 = 576
     const TRACK_W   = (MAX_Y - MIN_Y + 1) * COL + PAD_X * 2; // 7*450+160 = 3310
 
     // Card width and horizontal spread step for same-side same-year events
@@ -379,8 +379,12 @@
 
       const evs = ALL_EVENTS.filter(ev => !filter || ev.type === filter);
 
-      // Alternating above/below by chronological index: even → above, odd → below.
-      evs.forEach((ev, idx) => { ev._isAbove = idx % 2 === 0; });
+      // Placement: use explicit place:'up'/'down' if set, else alternate starting from down.
+      evs.forEach((ev, idx) => {
+        if (ev.place === 'up')        ev._isAbove = true;
+        else if (ev.place === 'down') ev._isAbove = false;
+        else                          ev._isAbove = idx % 2 === 1;
+      });
 
       // For same-year same-side events, spread horizontally so they don't overlap.
       const yearSide = {};
@@ -468,6 +472,27 @@
     btnAll.addEventListener('click',    () => { setActive(btnAll);    render(null); });
     btnCareer.addEventListener('click', () => { setActive(btnCareer); render('career'); });
     btnEdu.addEventListener('click',    () => { setActive(btnEdu);    render('education'); });
+
+    /* ── Mousewheel → smooth horizontal scroll ────────────── */
+    let wTarget = 0;
+    let wRaf    = null;
+    function wStep() {
+      const d = wTarget - scroll.scrollLeft;
+      if (Math.abs(d) < 0.5) { scroll.scrollLeft = wTarget; wRaf = null; return; }
+      scroll.scrollLeft += d * 0.11;
+      wRaf = requestAnimationFrame(wStep);
+    }
+    scroll.addEventListener('scroll', () => { if (!wRaf) wTarget = scroll.scrollLeft; });
+    scroll.addEventListener('wheel', e => {
+      if (e.deltaY !== 0) {
+        e.preventDefault();
+        wTarget = Math.max(0, Math.min(
+          scroll.scrollWidth - scroll.clientWidth,
+          wTarget + e.deltaY * 1.5
+        ));
+        if (!wRaf) wRaf = requestAnimationFrame(wStep);
+      }
+    }, { passive: false });
 
     render(null);
   })();
