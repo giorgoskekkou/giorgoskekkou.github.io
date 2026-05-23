@@ -63,6 +63,13 @@ body { margin: 0; overflow: hidden; }
 .p-hint    { color: #2e4e70; font-size: 1.1rem; line-height: 1.55; }
 .p-heading { color: #405e7e; font-size: 1.1rem; font-weight: 500; margin: 0 0 8px; }
 
+.p-keywords { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 18px; }
+.p-kw {
+  padding: 3px 10px; border-radius: 99px;
+  font-size: 0.82rem; font-weight: 500; letter-spacing: 0.04em;
+  background: #1a2b3f; color: #6b8aaa; border: 1px solid #2a3f57;
+}
+
 .ctrl-row {
   position: absolute; bottom: 14px; right: 14px;
   display: flex; flex-direction: column; gap: 4px; z-index: 10;
@@ -164,21 +171,28 @@ var NODES = [
   { id: 'hw',  name: 'Hardware',                   depth: 1, x:  320, y: 185, _p: HW_PAL,
     description: 'The physical substrate of computing, from logic gates and circuits to processors, memory systems, and SoCs.' },
   { id: 'sp',  name: 'Systems Programming',        depth: 2, x: -440, y: 380, _p: SW_PAL,
-    description: 'Low-level programming concerned with resource management, performance, and direct interaction with the OS and hardware interfaces.' },
+    description: 'Low-level programming concerned with resource management, performance, and direct interaction with the OS and hardware interfaces.',
+    keywords: ['Compilers', 'Assemblers', 'Parsers', 'Multithreading'] },
   { id: 'os',  name: 'Operating Systems',          depth: 2, x: -210, y: 380, _p: SW_PAL,
-    description: 'System software managing hardware resources, processes, memory, and I/O. The foundation upon which all applications run.' },
+    description: 'System software managing hardware resources, processes, memory, and I/O. The foundation upon which all applications run.',
+    keywords: ['Resource Allocation', 'Memory Management'] },
   { id: 'ca',  name: 'Computer Architecture',      depth: 2, x:    0, y: 380, _p: CA_PAL,
-    description: 'The discipline at the intersection of hardware and software defining how processors are structured, how memory is organized, and how parallelism is exploited.' },
+    description: 'The discipline at the intersection of hardware and software defining how processors are structured, how memory is organized, and how parallelism is exploited.',
+    keywords: ['CPU', 'GPU', 'Multi-core'] },
   { id: 'dsd', name: 'Digital System Design',      depth: 2, x:  320, y: 380, _p: HW_PAL,
-    description: 'Design of digital circuits using Boolean logic, sequential and combinational components, and hardware description languages such as VHDL and Verilog.' },
+    description: 'Design of digital circuits using Boolean logic, sequential and combinational components, and hardware description languages such as VHDL and Verilog.',
+    keywords: ['Verilog', 'VHDL'] },
   { id: 'fpga', name: 'FPGAs',                     depth: 2, x:  470, y: 380, _p: HW_PAL,
     description: 'Field-Programmable Gate Arrays: reconfigurable devices that can be programmed after manufacturing to implement custom digital logic, accelerators, and prototyping.' },
   { id: 'ta',   name: 'Testability Analysis',      depth: 2, x:  620, y: 380, _p: HW_PAL,
-    description: 'Techniques for verifying hardware correctness, including Design for Testability (DFT), fault modeling, scan chains, and ATPG to ensure reliable manufacturing.' },
+    description: 'Techniques for verifying hardware correctness, including Design for Testability (DFT), fault modeling, scan chains, and ATPG to ensure reliable manufacturing. Specifically building ML-based models to assist circuit testing.',
+    keywords: ['ATPG', 'DFT', 'ML'] },
   { id: 'par', name: 'Parallelism',                depth: 3, x: -120, y: 575, _p: CA_PAL,
-    description: 'Performing multiple computations simultaneously, by exploiting across instructions, data, processors or threads. Goal is to improve throughput and reduce execution time.' },
+    description: 'Performing multiple computations simultaneously, by exploiting across instructions, data, processors or threads. Goal is to improve throughput and reduce execution time.',
+    keywords: ['DLP', 'SMT']},
   { id: 'het', name: 'Heterogeneous Computing', depth: 3, x:  120, y: 575, _p: CA_PAL,
-    description: 'Systems combining different processor types (CPUs, GPUs, FPGAs, accelerators) to match diverse workload characteristics with the most suitable compute resources.' }
+    description: 'Systems combining different processor types (CPUs, GPUs, FPGAs, accelerators) to match diverse workload characteristics with the most suitable compute resources.',
+    keywords: ['CUDA', 'OpenCL'] }
 ];
 
 // ── Links (source id → target id, with color) ────────────────────────────────
@@ -355,11 +369,18 @@ function selectNode(d) {
   panel.classList.add('fade');
   panel.classList.remove('show');
   setTimeout(function() {
+    var kwHtml = '';
+    if (d.keywords && d.keywords.length) {
+      kwHtml = '<div class="p-keywords">' +
+        d.keywords.map(function(k) { return '<span class="p-kw">' + k + '</span>'; }).join('') +
+        '</div>';
+    }
     panel.innerHTML =
       '<div class="p-crumb">' + crumb + '</div>' +
       '<h2 class="p-title">' + d.name + '</h2>' +
       '<p class="p-desc">' + (d.description || 'No description available.') + '</p>' +
-      '<span class="p-badge" style="background:' + col + '1a;color:' + col + ';border:1px solid ' + col + '35">' + badge + '</span>';
+      '<span class="p-badge" style="background:' + col + '1a;color:' + col + ';border:1px solid ' + col + '35">' + badge + '</span>' +
+      kwHtml;
     panel.classList.remove('fade');
     panel.classList.add('show');
   }, 190);
