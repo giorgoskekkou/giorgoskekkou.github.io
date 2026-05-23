@@ -59,6 +59,31 @@
 				font-size: 1.3rem; /* optional tweak */
 			  }
 			}
+
+			.quick-links {
+				display: flex;
+				align-items: center;
+				flex-wrap: wrap;
+				gap: 0.6rem 0.85rem;
+				margin-top: 1.25rem;
+				font-size: 1rem;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+			}
+			.quick-links .ql-sep {
+				color: rgba(255,255,255,0.22);
+				user-select: none;
+			}
+			.quick-links a {
+				color: rgba(255,255,255,0.52);
+				border-bottom: 1px solid transparent;
+				transition: color 0.2s, border-color 0.2s;
+				text-decoration: none;
+			}
+			.quick-links a:hover {
+				color: rgba(255,255,255,0.9);
+				border-bottom-color: rgba(255,255,255,0.35);
+			}
 		</style>
 	</head>
 	<body class="is-preload">
@@ -86,6 +111,7 @@
 								<li><a href="#hobbies">Hobbies and Interests</a></li>
 								<li><a href="#projects">Projects</a></li>
 								<li class="menu-divider" aria-hidden="true"></li>
+								<li><a href="./files/GiorgosKekkou_CV.pdf">CV</a></li>
 								<li><a href="./about/timeline.html">Timeline</a></li>
 								<li><a href="./about/research_interests.html">Research Interests Page</a></li>
 								<li><a href="./about/view_projects.html">View All Projects Page</a></li>
@@ -117,22 +143,17 @@
 										My main research interest is Computer Architecture, with a focus on CPU and GPU design.
 										I enjoy working on projects and exploring new research directions to enrich my knowledge about the whole computer stack.
 										Currently, I am working as a Research Engineer at KIOS CoE, where I focus on the design of Machine Learning models for Testability problems.
-										<!-- <br> -->
-										&nbsp;&nbsp;
-										<a href="./about/timeline.html" style="font-size: 0.85em;">Path so far</a>
-										<br><br>
 										<!-- Short Bio: I am a Computer Engineer, seeking to expand my skills and gain experience in my field. 
 										I am interested in both software and hardware interaction.
 										I am currently working as a Research Engineer at KIOS. <br><br> -->
 									</div>
-									<br><br>
+									<!-- <br><br> -->
 								</div>
 								<br>
 								<div>
 									<div style="font-size:1.3rem; line-height:1.6;">
 										<ul>
 											<strong><em>Research Interests:</em></strong>
-											<a href="./about/research_interests.html" style="font-size: 0.85em; margin-left: 0.45rem;">More</a>
 											<li>Computer Architecture: Parallelism, Heterogeneous Computing</li>
 											<li>Systems Programming: Operating Systems, Compilers</li>
 											<li>Testability Analysis: Hardware Testing (ATPG)</li>
@@ -145,7 +166,7 @@
 											<!-- Old: My vision is to design secure and intelligent embedded systems that seamlessly integrate hardware and software to empower the next generation of technology. -->
 											<!-- My research aims to design hardware that can meet the intense demands of high-performance computing.
 											I am focused on creating multicore and multithreaded architectures through hardware/software co-design.  -->
-											<br><br>
+											<br>
 										</div>
 										<!-- <ul>Other Interests:
 											<li>GPU Acceleration</li>
@@ -153,11 +174,13 @@
 										</ul> -->
 									</div>
 
-									<p>
-										<!-- <a href="files/GiorgosKekkou_CV.pdf">View short CV/Resume</a> <br> -->
-										<!-- <a href="files/AcademicCV.pdf">View full CV/Resume</a>  -->
-										<a href="files/GiorgosKekkou_CV.pdf" style="font-size: 1.3rem;">View full CV</a> 
-									</p>
+									<div class="quick-links">
+										<a href="files/GiorgosKekkou_CV.pdf">Full CV</a>
+										<span class="ql-sep">·</span>
+										<a href="./about/timeline.html">Timeline</a>
+										<span class="ql-sep">·</span>
+										<a href="./about/research_interests.html">Research Interests</a>
+									</div>
 								</div>
 							</div>
 							<!-- <p><a href="files/GiorgosKekkou_CV.pdf">View full (short) CV/Resume</a> </p>
