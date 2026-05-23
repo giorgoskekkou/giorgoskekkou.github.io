@@ -3,19 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-<title>Research Interests Graph</title>
+<title>Research Interests</title>
 <link rel="stylesheet" href="../assets/css/main.css" />
 <link rel="icon" type="image/x-icon" href="../files/favicon.ico" />
 <noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
 <style>
-body {
-  margin: 0;
-  overflow: hidden;
-}
-
-#page-wrapper {
-  min-height: 100vh;
-}
+body { margin: 0; overflow: hidden; }
+#page-wrapper { min-height: 100vh; }
 
 .research-layout {
   display: flex;
@@ -26,89 +20,93 @@ body {
 #graph {
   flex: 3;
   min-width: 0;
-  min-height: 0;
-  background: #0f172a;
+  position: relative;
+  background: #0f1e35;
+  overflow: hidden;
 }
+
+#graph::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px);
+  background-size: 30px 30px;
+  pointer-events: none;
+}
+
+#graphSvg { display: block; }
 
 #infoPanel {
   flex: 1;
-  min-width: 280px;
-  background: #111827;
-  color: #fff;
-  padding: 20px;
+  min-width: 250px;
+  max-width: 310px;
+  background: #111e30;
+  color: #e2e8f0;
+  padding: 26px 22px;
   overflow-y: auto;
-  border-left: 1px solid #1f2937;
-  transition: all 0.3s ease;
+  border-left: 1px solid #1e3352;
+  transition: opacity 0.28s ease, transform 0.28s ease;
 }
 
-.fade {
-  opacity: 0;
-  transform: translateY(10px);
+#infoPanel.fade { opacity: 0; transform: translateY(5px); transition: none; }
+#infoPanel.show { opacity: 1; transform: translateY(0); }
+
+.p-crumb   { font-size: 1rem; color: #3a5878; margin-bottom: 12px; letter-spacing: 0.02em; }
+.p-title   { font-size: 1.7rem; font-weight: 600; color: #ecf4ff; margin: 0 0 10px; line-height: 1.3; }
+.p-desc    { font-size: 1.15rem; color: #7a9fc0; line-height: 1.65; margin: 0; }
+.p-badge   {
+  display: inline-block; margin-top: 16px;
+  padding: 3px 11px; border-radius: 99px;
+  font-size: 0.9rem; font-weight: 600;
+  letter-spacing: 0.07em; text-transform: uppercase;
+}
+.p-hint    { color: #2e4e70; font-size: 1.1rem; line-height: 1.55; }
+.p-heading { color: #405e7e; font-size: 1.1rem; font-weight: 500; margin: 0 0 8px; }
+
+.ctrl-row {
+  position: absolute; bottom: 14px; right: 14px;
+  display: flex; flex-direction: column; gap: 4px; z-index: 10;
+}
+.ctrl-btn {
+  width: 28px; height: 28px;
+  background: #0d1a2a; border: 1px solid #1a2f47; border-radius: 5px;
+  color: #3d5c7a; font-size: 15px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  user-select: none;
+}
+.ctrl-btn:hover { background: #112236; color: #7fa8c4; border-color: #264b6a; }
+
+.nav-tip {
+  position: absolute; bottom: 14px; left: 14px;
+  font-size: 0.72rem; color: #192c42; pointer-events: none; z-index: 10;
 }
 
-.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.node {
-  cursor: pointer;
-  stroke: #fff;
-  stroke-width: 1.5px;
-  transition: all 0.2s ease;
-}
-
-.node:hover {
-  stroke: #38bdf8;
-  stroke-width: 3px;
-}
-
-.link {
-  fill: none;
-  stroke: #64748b;
-  stroke-opacity: 0.6;
-  stroke-width: 1.5px;
-}
-
-svg text {
-  fill: #fff;
-  font-size: 13px;
-}
+.l-path { fill: none; stroke-width: 1.5px; stroke-opacity: 0.35; }
+.n-ring  { fill: none; stroke-width: 9px; stroke-opacity: 0; pointer-events: none; }
+.n-bg    { stroke-width: 1.8px; cursor: pointer; }
+.n-dot   { pointer-events: none; }
+.n-lbl   { pointer-events: none; }
 
 @media (max-width: 980px) {
-  .research-layout {
-    margin-top: 3.25rem;
-    height: calc(100vh - 3.25rem);
-  }
+  .research-layout { margin-top: 3.25rem; height: calc(100vh - 3.25rem); }
 }
-
 @media (max-width: 768px) {
-  .research-layout {
-    flex-direction: column;
-  }
-
-  #graph {
-    flex: 0 0 60%;
-  }
-
+  .research-layout { flex-direction: column; }
+  #graph { flex: 0 0 58%; }
   #infoPanel {
-    flex: 0 0 40%;
-    min-width: 0;
-    border-left: 0;
-    border-top: 1px solid #1f2937;
+    flex: 0 0 42%; min-width: 0; max-width: none;
+    border-left: none; border-top: 1px solid #162234; padding: 14px 16px;
   }
 }
 </style>
 </head>
 <body class="is-preload">
-
 <div id="page-wrapper">
 
   <header id="header">
     <h1><a href="../index.html">Giorgos Kekkou</a></h1>
-    <nav>
-      <a href="#menu">Menu</a>
-    </nav>
+    <nav><a href="#menu">Menu</a></nav>
   </header>
 
   <nav id="menu">
@@ -126,10 +124,18 @@ svg text {
   </nav>
 
   <div class="research-layout">
-    <svg id="graph"></svg>
+    <div id="graph">
+      <svg id="graphSvg"></svg>
+      <div class="ctrl-row">
+        <button class="ctrl-btn" id="btnIn"    title="Zoom in">+</button>
+        <button class="ctrl-btn" id="btnOut"   title="Zoom out">−</button>
+        <button class="ctrl-btn" id="btnReset" title="Reset view" style="font-size:10px;font-weight:700">&#8857;</button>
+      </div>
+      <div class="nav-tip">Scroll to zoom &middot; Drag to pan</div>
+    </div>
     <div id="infoPanel" class="show">
-      <h2>Research Topics</h2>
-      <p>Click on a node to explore details.</p>
+      <p class="p-heading">Research Interests</p>
+      <p class="p-hint">Click any node to explore details about that research area.</p>
     </div>
   </div>
 
@@ -143,111 +149,273 @@ svg text {
 <script src="../assets/js/main.js"></script>
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script>
-const graphElement = document.getElementById('graph');
-const graphWidth = Math.max(320, graphElement.clientWidth);
-const graphHeight = Math.max(320, graphElement.clientHeight);
+// ── Palette ──────────────────────────────────────────────────────────────────
+var ROOT_PAL = { fill: '#0369a1', glow: '#38bdf8' };
+var SW_PAL   = { fill: '#4338ca', glow: '#818cf8' };
+var HW_PAL   = { fill: '#065f46', glow: '#34d399' };
+var CA_PAL   = { fill: '#b45309', glow: '#fbbf24' };
 
-const svg = d3.select('#graph')
-  .attr('width', graphWidth)
-  .attr('height', graphHeight)
-  .append('g')
-  .attr('transform', 'translate(' + graphWidth / 2 + ',50)');
+// ── Nodes (explicit x,y positions — this is a DAG, not a tree) ───────────────
+var NODES = [
+  { id: 'cse', name: 'CSE',                        depth: 0, x:    0, y:   0, _p: ROOT_PAL,
+    description: 'Computer Science & Engineering spans the full stack from hardware circuits to software systems, united by the study of computation and its applications.' },
+  { id: 'sw',  name: 'Software',                   depth: 1, x: -320, y: 185, _p: SW_PAL,
+    description: 'The study of programs, languages, compilers, and the system software layer that makes hardware useful and programmable.' },
+  { id: 'hw',  name: 'Hardware',                   depth: 1, x:  320, y: 185, _p: HW_PAL,
+    description: 'The physical substrate of computing — from logic gates and circuits to processors, memory hierarchies, and interconnects.' },
+  { id: 'sp',  name: 'Systems Programming',        depth: 2, x: -440, y: 380, _p: SW_PAL,
+    description: 'Low-level programming concerned with resource management, performance, and direct interaction with the OS and hardware interfaces.' },
+  { id: 'os',  name: 'Operating Systems',          depth: 2, x: -210, y: 380, _p: SW_PAL,
+    description: 'System software managing hardware resources, processes, memory, and I/O — the foundation upon which all applications run.' },
+  { id: 'ca',  name: 'Computer Architecture',      depth: 2, x:    0, y: 380, _p: CA_PAL,
+    description: 'The discipline at the intersection of hardware and software — defining how processors are structured, how memory is organized, and how parallelism is exploited. Derived from both Software and Hardware.' },
+  { id: 'dsd', name: 'Digital System Design',      depth: 2, x:  320, y: 380, _p: HW_PAL,
+    description: 'Design of digital circuits using Boolean logic, sequential and combinational components, and hardware description languages such as VHDL and Verilog.' },
+  { id: 'fpga', name: 'FPGAs',                     depth: 2, x:  470, y: 380, _p: HW_PAL,
+    description: 'Field-Programmable Gate Arrays — reconfigurable silicon devices that can be programmed after manufacturing to implement custom digital logic, accelerators, and prototypes.' },
+  { id: 'ta',   name: 'Testability Analysis',      depth: 2, x:  620, y: 380, _p: HW_PAL,
+    description: 'Techniques for verifying hardware correctness — including Design for Testability (DFT), fault modeling, scan chains, and ATPG to ensure reliable manufacturing and operation.' },
+  { id: 'par', name: 'Parallelism',                depth: 3, x: -120, y: 575, _p: CA_PAL,
+    description: 'Performing multiple computations simultaneously — across instructions, data, or processors — to improve throughput and reduce execution time.' },
+  { id: 'het', name: 'Heterogeneous Architectures', depth: 3, x:  120, y: 575, _p: CA_PAL,
+    description: 'Systems combining different processor types (CPUs, GPUs, accelerators) to match diverse workload characteristics with the most suitable compute resources.' }
+];
 
-const data = {
-  name: 'Research Interests',
-  description: 'Overview of my research interests.',
-  children: [
-    {
-      name: 'AI',
-      description: 'Artificial Intelligence research including ML and DL.',
-      children: [
-        {
-          name: 'Machine Learning',
-          description: 'Supervised & Unsupervised learning.',
-          children: []
-        },
-        { name: 'Deep Learning', description: 'Neural networks and architectures.' }
-      ]
-    },
-    {
-      name: 'Data Science',
-      description: 'Working with data, analytics, and visualization.',
-      children: [
-        { name: 'Visualization', description: 'Graphs and dashboards.' },
-        { name: 'Statistics', description: 'Statistical modeling.' }
-      ]
-    },
-    {
-      name: 'Networks',
-      description: 'Distributed systems and communication networks.',
-      children: [
-        { name: 'Security', description: 'Cybersecurity and encryption.' },
-        { name: 'Protocols', description: 'Network communication models.' }
-      ]
-    }
-  ]
-};
+// ── Links (source id → target id, with color) ────────────────────────────────
+var LINKS = [
+  { s: 'cse', t: 'sw',  _pal: SW_PAL },
+  { s: 'cse', t: 'hw',  _pal: HW_PAL },
+  { s: 'sw',  t: 'sp',  _pal: SW_PAL },
+  { s: 'sw',  t: 'os',  _pal: SW_PAL },
+  { s: 'sw',  t: 'ca',  _pal: SW_PAL },
+  { s: 'hw',  t: 'ca',  _pal: HW_PAL },
+  { s: 'hw',  t: 'dsd',  _pal: HW_PAL },
+  { s: 'hw',  t: 'fpga', _pal: HW_PAL },
+  { s: 'hw',  t: 'ta',   _pal: HW_PAL },
+  { s: 'ca',  t: 'par', _pal: CA_PAL },
+  { s: 'ca',  t: 'het', _pal: CA_PAL }
+];
 
-const root = d3.hierarchy(data);
-const treeLayout = d3.tree().size([graphWidth - 100, graphHeight - 150]);
+// Resolve link source/target to node objects
+var nodeMap = {};
+NODES.forEach(function(n) { nodeMap[n.id] = n; });
+LINKS.forEach(function(l) { l._s = nodeMap[l.s]; l._t = nodeMap[l.t]; });
 
-treeLayout(root);
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function nr(d)          { return [21, 16, 13, 11][Math.min(d.depth, 3)]; }
+function getFontSize(d) { return ['19px', '17px', '15px', '15px'][Math.min(d.depth, 3)]; }
+function getLineH(d)    { return [21, 19, 17, 17][Math.min(d.depth, 3)]; }
 
-svg.selectAll('.link')
-  .data(root.links())
-  .enter()
-  .append('path')
-  .attr('class', 'link')
-  .attr('d', d3.linkVertical()
-    .x((d) => d.x - graphWidth / 2 + 50)
-    .y((d) => d.y)
-  );
-
-svg.selectAll('.node')
-  .data(root.descendants())
-  .enter()
-  .append('circle')
-  .attr('class', 'node')
-  .attr('cx', (d) => d.x - graphWidth / 2 + 50)
-  .attr('cy', (d) => d.y)
-  .attr('r', 12)
-  .attr('fill', '#22c55e')
-  .on('click', (event, d) => showInfo(d.data, event.target));
-
-svg.selectAll('.label')
-  .data(root.descendants())
-  .enter()
-  .append('text')
-  .attr('x', (d) => d.x - graphWidth / 2 + 50)
-  .attr('y', (d) => d.y + 25)
-  .attr('text-anchor', 'middle')
-  .text((d) => d.data.name);
-
-function showInfo(data, element) {
-  const panel = document.getElementById('infoPanel');
-
-  panel.classList.remove('show');
-
-  setTimeout(() => {
-    panel.innerHTML =
-      '<h2>' + data.name + '</h2>' +
-      '<p>' + (data.description || 'No description available.') + '</p>';
-    panel.classList.add('show');
-  }, 200);
-
-  d3.selectAll('.node').attr('fill', '#22c55e');
-  d3.select(element)
-    .transition()
-    .duration(200)
-    .attr('r', 16)
-    .attr('fill', '#38bdf8')
-    .transition()
-    .duration(200)
-    .attr('r', 12);
+function wrapText(name) {
+  if (name.length <= 13) return [name];
+  var mid   = Math.floor(name.length / 2);
+  var left  = name.lastIndexOf(' ', mid);
+  var right = name.indexOf(' ', mid);
+  var split = (left === -1) ? right : (right === -1) ? left :
+              (mid - left <= right - mid) ? left : right;
+  if (split === -1) return [name];
+  return [name.slice(0, split), name.slice(split + 1)];
 }
 
-window.addEventListener('resize', function () {
-  location.reload();
+// Cubic bezier S-curve between two points (vertical flow)
+function curvePath(s, t) {
+  var my = (s.y + t.y) / 2;
+  return 'M' + s.x + ',' + s.y +
+         ' C' + s.x + ',' + my + ' ' + t.x + ',' + my + ' ' + t.x + ',' + t.y;
+}
+
+// ── Canvas ────────────────────────────────────────────────────────────────────
+var graphEl = document.getElementById('graph');
+var svg     = d3.select('#graphSvg');
+
+function gW() { return graphEl.clientWidth  || 600; }
+function gH() { return graphEl.clientHeight || 460; }
+
+svg.attr('width', gW()).attr('height', gH());
+
+var zGroup = svg.append('g');
+var g      = zGroup.append('g');
+
+var zoomB = d3.zoom()
+  .scaleExtent([0.25, 4])
+  .on('zoom', function(e) { zGroup.attr('transform', e.transform); });
+
+svg.call(zoomB).on('dblclick.zoom', null);
+
+// ── Links ─────────────────────────────────────────────────────────────────────
+var lPaths = g.append('g')
+  .selectAll('.l-path')
+  .data(LINKS)
+  .enter().append('path')
+  .attr('class', 'l-path')
+  .attr('stroke', function(l) { return l._pal.glow; })
+  .attr('d', function(l) { return curvePath(l._s, l._t); });
+
+lPaths.each(function(_, i) {
+  var len = this.getTotalLength();
+  d3.select(this)
+    .attr('stroke-dasharray', len + ' ' + len)
+    .attr('stroke-dashoffset', len)
+    .transition()
+    .delay(i * 65 + 100)
+    .duration(700)
+    .ease(d3.easeCubicOut)
+    .attr('stroke-dashoffset', 0);
+});
+
+// ── Nodes ─────────────────────────────────────────────────────────────────────
+var nG = g.append('g')
+  .selectAll('.n-grp')
+  .data(NODES)
+  .enter().append('g')
+  .attr('class', 'n-grp')
+  .attr('transform', function(d) { return 'translate(' + d.x + ',' + d.y + ')'; })
+  .style('opacity', 0)
+  .on('click', function(event, d) { event.stopPropagation(); selectNode(d); });
+
+nG.transition()
+  .delay(function(_, i) { return i * 80 + 60; })
+  .duration(480)
+  .ease(d3.easeBackOut.overshoot(1.15))
+  .style('opacity', 1);
+
+nG.append('circle').attr('class', 'n-ring')
+  .attr('r', function(d) { return nr(d) + 8; })
+  .attr('stroke', function(d) { return d._p.glow; });
+
+nG.append('circle').attr('class', 'n-bg')
+  .attr('r', function(d) { return nr(d); })
+  .attr('fill', function(d) { return d._p.fill + '28'; })
+  .attr('stroke', function(d) { return d._p.glow; })
+  .on('mouseenter', function(_, d) {
+    if (d._sel) return;
+    d3.select(this.parentNode).select('.n-ring')
+      .transition().duration(140).attr('stroke-opacity', 0.22);
+    d3.select(this).transition().duration(140)
+      .attr('r', nr(d) + 2.5).attr('fill', d._p.fill + '4a');
+  })
+  .on('mouseleave', function(_, d) {
+    if (d._sel) return;
+    d3.select(this.parentNode).select('.n-ring')
+      .transition().duration(200).attr('stroke-opacity', 0);
+    d3.select(this).transition().duration(200)
+      .attr('r', nr(d)).attr('fill', d._p.fill + '28');
+  });
+
+nG.append('circle').attr('class', 'n-dot')
+  .attr('r', function(d) { return [8, 6, 5, 4][Math.min(d.depth, 3)]; })
+  .attr('fill', function(d) { return d._p.glow; });
+
+nG.each(function(d) {
+  var lines = wrapText(d.name);
+  var yOff  = nr(d) + 11;
+  var lh    = getLineH(d);
+  var textEl = d3.select(this).append('text')
+    .attr('class', 'n-lbl')
+    .attr('text-anchor', 'middle')
+    .attr('fill', d._p.glow)
+    .style('font-size', getFontSize(d))
+    .style('font-weight', d.depth < 2 ? '500' : '400');
+  lines.forEach(function(line, i) {
+    textEl.append('tspan')
+      .attr('x', 0)
+      .attr('dy', i === 0 ? yOff + 'px' : lh + 'px')
+      .text(line);
+  });
+});
+
+// ── Selection ─────────────────────────────────────────────────────────────────
+var curSel = null;
+
+function selectNode(d) {
+  if (curSel && curSel !== d) {
+    var p = curSel;
+    p._sel = false;
+    nG.filter(function(n) { return n === p; }).select('.n-bg')
+      .transition().duration(200).attr('r', nr(p)).attr('fill', p._p.fill + '28');
+    nG.filter(function(n) { return n === p; }).select('.n-ring')
+      .transition().duration(200).attr('stroke-opacity', 0);
+  }
+  d._sel = true;
+  curSel = d;
+
+  nG.filter(function(n) { return n === d; }).select('.n-bg')
+    .transition().duration(200).attr('r', nr(d) + 3).attr('fill', d._p.fill + '55');
+  nG.filter(function(n) { return n === d; }).select('.n-ring')
+    .transition().duration(200).attr('stroke-opacity', 0.48);
+
+  // Breadcrumb: list all immediate parents (handles shared nodes)
+  var parents = LINKS.filter(function(l) { return l._t === d; }).map(function(l) { return l._s.name; });
+  var crumb   = parents.length ? parents.join(' + ') + ' › ' + d.name : d.name;
+  var BADGES  = ['Field', 'Domain', 'Area', 'Topic'];
+  var badge   = BADGES[Math.min(d.depth, BADGES.length - 1)];
+  var col     = d._p.glow;
+
+  var panel = document.getElementById('infoPanel');
+  panel.classList.add('fade');
+  panel.classList.remove('show');
+  setTimeout(function() {
+    panel.innerHTML =
+      '<div class="p-crumb">' + crumb + '</div>' +
+      '<h2 class="p-title">' + d.name + '</h2>' +
+      '<p class="p-desc">' + (d.description || 'No description available.') + '</p>' +
+      '<span class="p-badge" style="background:' + col + '1a;color:' + col + ';border:1px solid ' + col + '35">' + badge + '</span>';
+    panel.classList.remove('fade');
+    panel.classList.add('show');
+  }, 190);
+}
+
+// ── Fit / zoom ────────────────────────────────────────────────────────────────
+function fitView(anim) {
+  var w = gW(), h = gH();
+  var bb;
+  try { bb = g.node().getBBox(); } catch(e) { return; }
+  if (!bb.width || !bb.height) { setTimeout(function() { fitView(false); }, 100); return; }
+  var pad = 24;
+  var s = Math.min(1.3, Math.min((w - pad * 2) / bb.width, (h - pad * 2) / bb.height));
+  var tx = (w - bb.width * s) / 2 - bb.x * s;
+  var ty = (h - bb.height * s) / 2 - bb.y * s;
+  var t = d3.zoomIdentity.translate(tx, ty).scale(s);
+  if (anim) svg.transition().duration(500).call(zoomB.transform, t);
+  else      svg.call(zoomB.transform, t);
+}
+
+// Click on empty canvas → restore default panel
+svg.on('click', function() {
+  if (curSel) {
+    var p = curSel;
+    p._sel = false;
+    curSel = null;
+    nG.filter(function(n) { return n === p; }).select('.n-bg')
+      .transition().duration(200).attr('r', nr(p)).attr('fill', p._p.fill + '28');
+    nG.filter(function(n) { return n === p; }).select('.n-ring')
+      .transition().duration(200).attr('stroke-opacity', 0);
+  }
+  var panel = document.getElementById('infoPanel');
+  panel.classList.add('fade');
+  panel.classList.remove('show');
+  setTimeout(function() {
+    panel.innerHTML =
+      '<p class="p-heading">Research Interests</p>' +
+      '<p class="p-hint">Click any node to explore details about that research area.</p>';
+    panel.classList.remove('fade');
+    panel.classList.add('show');
+  }, 190);
+});
+
+setTimeout(function() { fitView(false); }, 80);
+
+document.getElementById('btnIn')   .addEventListener('click', function() { svg.transition().duration(260).call(zoomB.scaleBy, 1.45); });
+document.getElementById('btnOut')  .addEventListener('click', function() { svg.transition().duration(260).call(zoomB.scaleBy, 1/1.45); });
+document.getElementById('btnReset').addEventListener('click', function() { fitView(true); });
+
+var rsT;
+window.addEventListener('resize', function() {
+  clearTimeout(rsT);
+  rsT = setTimeout(function() {
+    svg.attr('width', gW()).attr('height', gH());
+    fitView(true);
+  }, 160);
 });
 </script>
 
