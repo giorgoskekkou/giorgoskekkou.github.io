@@ -3,86 +3,198 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Horizontal Yearly Timeline — Career & Education</title>
+  <title>Timeline — Career &amp; Education</title>
   <link rel="stylesheet" href="../assets/css/main.css" />
   <link rel="icon" type="image/x-icon" href="../files/favicon.ico" />
   <noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
   <style>
-    :root{
-      --bg:#0f1724;
-      --card:#0b1220;
-      --muted:#9aa7bf;
-      --accent1:#6ee7b7; /* education */
-      --accent2:#7cc3ff; /* career */
-      --glass: rgba(255,255,255,0.03);
-      --glass-2: rgba(255,255,255,0.02);
-      --shadow: 0 8px 30px rgba(2,6,23,0.7);
-      --ease: cubic-bezier(.2,.9,.3,1);
+    :root {
+      --muted:      #9aa7bf;
+      --accent-edu: #6ee7b7;
+      --accent-car: #7cc3ff;
+      --card-bg:    rgba(11,18,32,0.97);
+      --shadow:     0 8px 32px rgba(2,6,23,0.75);
+      --ease:       cubic-bezier(.2,.9,.3,1);
     }
-    *{box-sizing:border-box}
-    html,body{height:100%;background:linear-gradient(180deg,#071028 0%, #0b1220 100%);color:#e6eef8;font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial;line-height:1.4;margin:0}
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      background: linear-gradient(180deg, #071028 0%, #0b1220 100%);
+      color: #e6eef8;
+      font-family: Inter, ui-sans-serif, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      line-height: 1.45;
+    }
 
     .timeline-page { margin-top: 4.25rem; }
 
-    .timeline-header{padding:32px 28px 8px;display:flex;gap:20px;align-items:center;justify-content:space-between}
-    .timeline-header h1{font-size:18px;margin:0;font-weight:600;letter-spacing:-0.2px}
-    .timeline-header p{margin:0;color:var(--muted);font-size:13px}
+    /* ── Page header ───────────────────────────── */
+    .tl-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding: 32px 28px 20px;
+    }
+    .tl-header h1 { font-size: 20px; font-weight: 600; letter-spacing: -0.3px; }
+    .tl-header p  { margin-top: 5px; color: var(--muted); font-size: 14px; }
 
-    .controls{display:flex;gap:10px;align-items:center}
-    .btn{background:var(--glass);border:1px solid rgba(255,255,255,0.03);padding:8px 12px;border-radius:10px;color:var(--muted);cursor:pointer;backdrop-filter: blur(6px);transition:all .2s var(--ease)}
-    .btn:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
-    .btn.active{color: #061025;background:linear-gradient(90deg,var(--accent2),var(--accent1));border:0}
+    /* ── Filter controls ───────────────────────── */
+    .controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .legend   { display: flex; gap: 14px; align-items: center; }
+    .legend .item   { display: flex; gap: 7px; align-items: center; font-size: 15px; color: var(--muted); }
+    .legend .swatch { width: 11px; height: 11px; border-radius: 3px; flex-shrink: 0; }
 
-    .wrap{padding:24px 16px 48px}
-    .timeline-shell{position:relative;background:linear-gradient(180deg,rgba(255,255,255,0.01), transparent);border-radius:16px;padding:40px 16px;overflow:hidden}
-
-    /* years ruler */
-    .ruler{position:relative;padding:12px 0 28px;display:flex;align-items:center}
-    .ruler-track{height:4px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.06),transparent);width:100%;border-radius:6px;position:relative}
-    .ruler-year{position:absolute;top:-28px;font-size:12px;color:var(--muted);transform:translateX(-50%);cursor:pointer}
-
-    /* timeline area */
-    .timeline{display:flex;gap:60px;align-items:flex-start;padding:40px 20px;overflow-x:auto;overflow-y:visible;scroll-behavior:smooth;position:relative;min-height:500px}
-    .timeline::-webkit-scrollbar{height:12px}
-    .timeline::-webkit-scrollbar-thumb{background:linear-gradient(90deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02));border-radius:999px}
-
-    .event{width:400px;background:linear-gradient(180deg,var(--card),rgba(8,12,18,0.95));border-radius:16px;padding:24px;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,0.05);transform-origin:center;transition:transform .22s var(--ease),box-shadow .22s var(--ease),opacity .22s}
-    .event:hover{transform:translateY(-8px) scale(1.03);box-shadow:0 20px 60px rgba(2,6,23,0.75)}
-    .event .meta{display:flex;align-items:center;gap:14px}
-    .badge{width:60px;height:60px;border-radius:12px;display:grid;place-items:center;font-weight:700;color:#021425;font-size:18px}
-    .title{font-size:20px;font-weight:600;margin:6px 0}
-    .sub{font-size:15px;color:var(--muted)}
-    .desc{margin-top:12px;font-size:15px;color:#cfe7ff;opacity:0.9;line-height:1.5}
-    .year-pill{display:inline-block;margin-top:16px;padding:8px 12px;border-radius:10px;background:var(--glass-2);font-size:14px;color:var(--muted)}
-
-    .connector{height:12px;width:12px;border-radius:50%;margin-top:16px;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
-
-    .legend{display:flex;gap:12px;align-items:center;margin-left:8px}
-    .legend .item{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted)}
-    .legend .sw{width:12px;height:12px;border-radius:3px}
-
-    @media (max-width:980px){
-      .timeline-page { margin-top: 3.25rem; }
+    .btn {
+      padding: 8px 18px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.03);
+      color: var(--muted);
+      font-size: 14px;
+      cursor: pointer;
+      transition: color .18s var(--ease), border-color .18s var(--ease), background .18s var(--ease);
+    }
+    .btn:hover { color: #e6eef8; border-color: rgba(255,255,255,0.14); }
+    .btn.active {
+      background: linear-gradient(90deg, var(--accent-car), var(--accent-edu));
+      border-color: transparent;
+      color: #041020;
+      font-weight: 600;
     }
 
-    @media (max-width:720px){
-      .timeline-header{padding:20px}
-      .timeline{gap:30px;padding:20px;min-height:400px}
-      .event{width:320px}
+    /* ── Horizontal scroll wrapper ─────────────── */
+    .tl-scroll {
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 0 28px 40px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .tl-scroll::-webkit-scrollbar        { height: 5px; }
+    .tl-scroll::-webkit-scrollbar-track  { background: rgba(255,255,255,0.02); border-radius: 99px; }
+    .tl-scroll::-webkit-scrollbar-thumb  { background: rgba(255,255,255,0.1);  border-radius: 99px; }
+
+    /* ── Track (width & height set by JS) ──────── */
+    .tl-track { position: relative; }
+
+    /* ── Center rule line ──────────────────────── */
+    .tl-line {
+      position: absolute;
+      left: 0; right: 0;
+      height: 2px;
+      border-radius: 2px;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,0.1) 4%,
+        rgba(255,255,255,0.1) 96%,
+        transparent
+      );
     }
 
-    .fade-in{opacity:0;transform:translateY(6px) scale(.99)}
-    .fade-in.show{opacity:1;transform:none}
+    /* ── Year tick marks ───────────────────────── */
+    .tl-tick {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transform: translateX(-50%);
+      cursor: pointer;
+      user-select: none;
+    }
+    .tl-tick-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      border: 1.5px solid rgba(255,255,255,0.22);
+      flex-shrink: 0;
+      transition: background .18s;
+    }
+    .tl-tick:hover .tl-tick-dot { background: rgba(255,255,255,0.32); }
+    .tl-tick-label {
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.4px;
+    }
 
+    /* ── Event dots on center line ─────────────── */
+    .tl-dot {
+      position: absolute;
+      border-radius: 50%;
+      border: 2px solid rgba(8,12,20,0.9);
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+
+    /* ── Connector lines ───────────────────────── */
+    .tl-conn {
+      position: absolute;
+      width: 1.5px;
+      border-radius: 2px;
+    }
+
+    /* ── Event cards ───────────────────────────── */
+    .tl-card {
+      position: absolute;
+      background: var(--card-bg);
+      border-radius: 14px;
+      padding: 18px 20px;
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: var(--shadow);
+      opacity: 0;
+      transition:
+        opacity   .38s var(--ease),
+        transform .38s var(--ease),
+        box-shadow .22s var(--ease),
+        border-color .22s;
+    }
+    /* initial (pre-reveal) transform — card width & centering set inline by JS */
+    .tl-card.above { transform: translateX(-50%) translateY(10px); }
+    .tl-card.below { transform: translateX(-50%) translateY(-10px); }
+    /* revealed */
+    .tl-card.visible            { opacity: 1; }
+    .tl-card.visible.above      { transform: translateX(-50%); }
+    .tl-card.visible.below      { transform: translateX(-50%); }
+    /* hover — float away from center line */
+    .tl-card.visible.above:hover {
+      transform: translateX(-50%) translateY(-6px);
+      box-shadow: 0 22px 52px rgba(2,6,23,0.9);
+      border-color: rgba(255,255,255,0.11);
+    }
+    .tl-card.visible.below:hover {
+      transform: translateX(-50%) translateY(6px);
+      box-shadow: 0 22px 52px rgba(2,6,23,0.9);
+      border-color: rgba(255,255,255,0.11);
+    }
+
+    .card-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: 11px;
+      color: #031220;
+    }
+    .card-title { font-size: 15px; font-weight: 600; margin-bottom: 4px; line-height: 1.35; }
+    .card-sub   { font-size: 13px; color: var(--muted); margin-bottom: 10px; line-height: 1.4; }
+    .card-desc  { font-size: 13.5px; color: #c4dff7; opacity: 0.88; line-height: 1.58; }
+
+    @media (max-width: 980px) { .timeline-page { margin-top: 3.25rem; } }
+    @media (max-width: 680px) {
+      .tl-header { padding: 20px 16px 14px; }
+      .tl-scroll  { padding: 0 14px 28px; }
+    }
   </style>
 </head>
 <body class="is-preload">
   <div id="page-wrapper">
+
     <header id="header">
       <h1><a href="../index.html">Giorgos Kekkou</a></h1>
-      <nav>
-        <a href="#menu">Menu</a>
-      </nav>
+      <nav><a href="#menu">Menu</a></nav>
     </header>
 
     <nav id="menu">
@@ -90,6 +202,7 @@
         <h2>Menu</h2>
         <ul class="links">
           <li><a href="../index.html">Home</a></li>
+          <li><a href="../files/GiorgosKekkou_CV.pdf">CV</a></li>
           <li><a href="./timeline.html">Timeline</a></li>
           <li><a href="./research_interests.html">Research Interests</a></li>
           <li><a href="./view_projects.html">View All Projects</a></li>
@@ -100,32 +213,31 @@
     </nav>
 
     <div class="timeline-page">
-  <header class="timeline-header">
-    <div>
-      <h1>Yearly Timeline — Career & Education</h1>
-      <p>Horizontal, year-based timeline to showcase growth. Click years, filter by type, or scroll horizontally.</p>
-    </div>
-    <div class="controls">
-      <div class="legend">
-        <div class="item"><span class="sw" style="background:var(--accent1)"></span>Education</div>
-        <div class="item"><span class="sw" style="background:var(--accent2)"></span>Career</div>
-      </div>
-      <button class="btn" id="btn-all">All</button>
-      <button class="btn" id="btn-career">Career</button>
-      <button class="btn" id="btn-edu">Education</button>
-    </div>
-  </header>
 
-  <main class="wrap">
-    <div class="timeline-shell">
-      <div class="ruler" id="ruler">
-        <div class="ruler-track" id="ruler-track"></div>
+      <header class="tl-header">
+        <div>
+          <h1>Career &amp; Education Timeline</h1>
+          <p>Scroll horizontally &middot; filter by type &middot; click a year to jump</p>
+        </div>
+        <div class="controls">
+          <div class="legend">
+            <div class="item">
+              <span class="swatch" style="background:var(--accent-edu)"></span>Education
+            </div>
+            <div class="item">
+              <span class="swatch" style="background:var(--accent-car)"></span>Career
+            </div>
+          </div>
+          <button class="btn active" id="btn-all">All</button>
+          <button class="btn"        id="btn-career">Career</button>
+          <button class="btn"        id="btn-edu">Education</button>
+        </div>
+      </header>
+
+      <div class="tl-scroll" id="tl-scroll">
+        <div class="tl-track" id="tl-track"></div>
       </div>
-      <div class="timeline" id="timeline" tabindex="0" aria-label="Horizontal timeline of events">
-        <!-- events injected by JS -->
-      </div>
-    </div>
-  </main>
+
     </div>
   </div>
 
@@ -137,125 +249,228 @@
   <script src="../assets/js/main.js"></script>
 
   <script>
-    const events = [
-      // {year:2016, type:'education', title:'Started University', subtitle:'BSc Computer Engineering', desc:'Admitted to the Electrical and Computer Engineering program at University of Cyprus — learned fundamentals in algorithms, data structures, and web development.'},
-      {year:2020, type:'education', title:'High School Graduation', subtitle:'Lyceum Diploma', desc:'Grade: 19.33/20 (Excellent), Focus: Maths, ...'},
-      {year:2021, type:'education', title:'Started University', subtitle:'BSc Computer Engineering', desc:'Admitted to the Electrical and Computer Engineering program at University of Cyprus — received 1st position at Pancyprian Exams'},
-      {year:2023, type:'career', title:'Internship', subtitle:'Quality Assurance (QA) Automation Intern', desc:'Worked on UI components, accessibility fixes and improving load times.'},
-      // {year:2019, type:'education', title:'Study Abroad', subtitle:'Semester in Berlin', desc:'Exposed to international teams and industry projects.'},
-      // {year:2020, type:'career', title:'Junior Developer', subtitle:'Full-time at Acme Corp', desc:'Joined as a frontend dev building customer dashboards; focused on performance and testing.'},
-      // {year:2022, type:'career', title:'Senior Developer', subtitle:'Led small team', desc:'Took ownership of a product area and mentored juniors.'},
-      // {year:2023, type:'education', title:'Professional Certificate', subtitle:'UX & Product Design', desc:'Short course on product thinking and user-centered design.'},
-      // {year:2024, type:'career', title:'Engineering Manager', subtitle:'Leading cross-functional squad', desc:'Transitioned into management while remaining technically hands-on.'}
+  (() => {
+    /* ── Event data ────────────────────────────────────────── */
+    const ALL_EVENTS = [
+      {
+        year: 2020, type: 'education',
+        title: 'High School Graduation',
+        sub:   'Lyceum Diploma',
+        desc:  'Grade 19.33 / 20 (Excellent). Focus: Mathematics & Sciences.'
+      },
+      {
+        year: 2021, type: 'education',
+        title: 'Started University',
+        sub:   'BSc Computer Engineering — UCY',
+        desc:  'Admitted to Electrical & Computer Engineering at the University of Cyprus. Achieved 1st place in the Pancyprian Examinations.'
+      },
+      {
+        year: 2023, type: 'career',
+        title: 'Internship',
+        sub:   'QA Automation Intern — Summer 2023',
+        desc:  'Built automated UI tests, resolved accessibility issues, and improved load-time metrics for production web applications.'
+      },
+      {
+        year: 2024, type: 'career',
+        title: 'Internship',
+        sub:   'Summer 2024',
+        desc:  'Second professional internship with deeper involvement in engineering workflows and test infrastructure.'
+      },
+      {
+        year: 2025, type: 'education',
+        title: 'Completed Bachelor Degree',
+        sub:   'BSc Computer Engineering — May 2025',
+        desc:  'Graduated from the University of Cyprus with a BSc in Electrical & Computer Engineering.'
+      },
+      {
+        year: 2025, type: 'career',
+        title: 'Current Role',
+        sub:   'July 2025 – Present',
+        desc:  'Full-time professional role — currently active and ongoing.'
+      },
+      {
+        year: 2025, type: 'career',
+        title: 'Past Position',
+        sub:   'September – December 2025',
+        desc:  'Short-term career engagement completed in December 2025.'
+      },
+      // {
+      //   year: 2026, type: 'education',
+      //   title: 'Starting MSc',
+      //   sub:   'September 2026',
+      //   desc:  'Beginning a Master of Science degree — continuing academic growth after professional experience.'
+      // },
     ];
 
-    const timeline = document.getElementById('timeline');
-    const ruler = document.getElementById('ruler');
-    const btnAll = document.getElementById('btn-all');
-    const btnCareer = document.getElementById('btn-career');
-    const btnEdu = document.getElementById('btn-edu');
+    /* ── Layout constants ──────────────────────────────────── */
+    const MIN_Y     = 2020;
+    const MAX_Y     = 2026;
+    const COL       = 450;    // px per year column (wider to accommodate same-year spreads)
+    const PAD_X     = 80;     // horizontal padding each side
 
-    const years = events.map(e=>e.year);
-    const minYear = Math.min(...years);
-    const maxYear = Math.max(...years);
-    const span = Math.max(5, maxYear - minYear);
+    // Vertical geometry — all y values are from track top
+    const TOP_PAD   = 36;     // breathing room above above-cards
+    const CARD_AREA = 240;    // vertical space reserved per card section (≥ max card height)
+    const CONN_H    = 48;     // connector length (card edge → dot edge)
+    const DOT_R     = 7;      // event dot radius (px)
+    const TICK_R    = 4;      // year-tick dot radius (CSS: 8px diameter)
 
-    function renderRuler(){
-      for(let y=minYear; y<=maxYear; y++){
-        const el = document.createElement('div');
-        el.className = 'ruler-year';
-        const pos = ((y - minYear) / span) * 100;
-        el.style.left = pos + '%';
-        el.textContent = y;
-        el.dataset.year = y;
-        el.addEventListener('click', ()=>scrollToYear(y));
-        ruler.appendChild(el);
-      }
+    // The center line y-coordinate — everything aligns to this
+    const CENTER_Y  = TOP_PAD + CARD_AREA + CONN_H + DOT_R; // 36+240+48+7 = 331
+    const ABOVE_BTM = CENTER_Y - DOT_R - CONN_H;            // 331-7-48 = 276
+    const BELOW_TOP = CENTER_Y + DOT_R + CONN_H;            // 331+7+48 = 386
+    const TRACK_H   = BELOW_TOP + CARD_AREA + TOP_PAD;      // 386+240+36 = 662
+    const TRACK_W   = (MAX_Y - MIN_Y + 1) * COL + PAD_X * 2; // 7*450+160 = 3310
+
+    // Card width and horizontal spread step for same-side same-year events
+    const CARD_W    = 260;    // wider cards = less vertical stretch
+    const STEP      = CARD_W + 20; // 280px between card centers
+
+    /* ── DOM ───────────────────────────────────────────────── */
+    const track  = document.getElementById('tl-track');
+    const scroll = document.getElementById('tl-scroll');
+
+    track.style.width  = TRACK_W + 'px';
+    track.style.height = TRACK_H + 'px';
+
+    /* ── Helpers ───────────────────────────────────────────── */
+    function yearToX(year) {
+      return PAD_X + (year - MIN_Y) * COL + COL / 2;
     }
 
-    function yearToX(year){
-      const containerWidth = Math.max(2000, window.innerWidth * 2.2); 
-      return ((year - minYear) / span) * containerWidth;
+    function hexCol(type) {
+      return type === 'education' ? '#6ee7b7' : '#7cc3ff';
     }
 
-    function renderEvents(filterType=null){
-      timeline.innerHTML = '';
-      events.forEach((ev, idx)=>{
-        if(filterType && ev.type !== filterType) return;
+    function grad(type) {
+      return type === 'education'
+        ? 'linear-gradient(135deg, #6ee7b7, #34d399)'
+        : 'linear-gradient(135deg, #7cc3ff, #60a5fa)';
+    }
 
-        const wrapper = document.createElement('div');
-        wrapper.style.position = 'absolute';
-        wrapper.style.left = yearToX(ev.year) + 'px';
-        wrapper.className = 'fade-in';
+    function make(tag, cls, styles) {
+      const el = document.createElement(tag);
+      if (cls)    el.className = cls;
+      if (styles) Object.assign(el.style, styles);
+      track.appendChild(el);
+      return el;
+    }
 
-        const card = document.createElement('div');
-        card.className = 'event';
+    /* ── Center line ───────────────────────────────────────── */
+    // Offset by -1 so the 2px line is visually centered on CENTER_Y
+    make('div', 'tl-line', { top: (CENTER_Y - 1) + 'px' });
 
-        const meta = document.createElement('div');
-        meta.className = 'meta';
+    /* ── Year ticks ────────────────────────────────────────── */
+    // top = CENTER_Y - TICK_R so the 8px dot (radius 4) is centered on CENTER_Y
+    for (let y = MIN_Y; y <= MAX_Y; y++) {
+      const x = yearToX(y);
+      const tick = make('div', 'tl-tick', {
+        left: x + 'px',
+        top:  (CENTER_Y - TICK_R) + 'px',
+      });
+      tick.innerHTML =
+        `<div class="tl-tick-dot"></div><div class="tl-tick-label">${y}</div>`;
+      tick.addEventListener('click', () => jumpToYear(y));
+    }
 
-        const badge = document.createElement('div');
-        badge.className = 'badge';
-        badge.style.background = (ev.type==='education') ? 'linear-gradient(180deg,var(--accent1),rgba(122,202,170,0.9))' : 'linear-gradient(180deg,var(--accent2),rgba(125,195,255,0.95))';
-        badge.innerHTML = ev.year.toString().slice(-2);
+    /* ── Render events ─────────────────────────────────────── */
+    function render(filter) {
+      track.querySelectorAll('.tl-card, .tl-conn, .tl-dot').forEach(el => el.remove());
 
-        const head = document.createElement('div');
-        const t = document.createElement('div'); t.className = 'title'; t.textContent = ev.title;
-        const s = document.createElement('div'); s.className = 'sub'; s.textContent = ev.subtitle;
-        head.appendChild(t); head.appendChild(s);
+      const evs = ALL_EVENTS.filter(ev => !filter || ev.type === filter);
 
-        meta.appendChild(badge);
-        meta.appendChild(head);
+      // Alternating above/below by chronological index: even → above, odd → below.
+      evs.forEach((ev, idx) => { ev._isAbove = idx % 2 === 0; });
 
-        const desc = document.createElement('div');
-        desc.className = 'desc';
-        desc.textContent = ev.desc;
-
-        const yearPill = document.createElement('div');
-        yearPill.className = 'year-pill';
-        yearPill.textContent = ev.year;
-
-        const connector = document.createElement('div');
-        connector.className = 'connector';
-        connector.style.background = (ev.type==='education') ? 'var(--accent1)' : 'var(--accent2)';
-
-        card.appendChild(meta);
-        card.appendChild(desc);
-        card.appendChild(yearPill);
-        card.appendChild(connector);
-
-        wrapper.appendChild(card);
-        timeline.appendChild(wrapper);
-
-        setTimeout(()=>{ wrapper.classList.add('show'); }, 120*idx);
-
-        card.addEventListener('click', ()=>{
-          const rect = wrapper.getBoundingClientRect();
-          const offset = rect.left + (rect.width/2) - (window.innerWidth/2);
-          timeline.scrollBy({left: offset, behavior:'smooth'});
-          card.animate([{transform:'scale(1.05)'},{transform:'scale(1)'}],{duration:320, easing:'ease-out'});
+      // For same-year same-side events, spread horizontally so they don't overlap.
+      const yearSide = {};
+      evs.forEach(ev => {
+        const key = ev.year + ':' + (ev._isAbove ? 'A' : 'B');
+        if (!yearSide[key]) yearSide[key] = [];
+        yearSide[key].push(ev);
+      });
+      Object.values(yearSide).forEach(group => {
+        group.forEach((ev, i) => {
+          ev._xOff = (i - (group.length - 1) / 2) * STEP;
         });
+      });
+
+      evs.forEach((ev, idx) => {
+        const x    = yearToX(ev.year) + (ev._xOff || 0);
+        const col  = hexCol(ev.type);
+        const g    = grad(ev.type);
+
+        // Event dot — centered on center line (top = CENTER_Y - DOT_R)
+        make('div', 'tl-dot', {
+          left:       (x - DOT_R) + 'px',
+          top:        (CENTER_Y - DOT_R) + 'px',
+          width:      (DOT_R * 2) + 'px',
+          height:     (DOT_R * 2) + 'px',
+          background: g,
+        });
+
+        // Connector — fades from dot outward toward card
+        if (ev._isAbove) {
+          make('div', 'tl-conn', {
+            left:       (x - 0.75) + 'px',
+            top:        ABOVE_BTM + 'px',
+            height:     CONN_H + 'px',
+            background: `linear-gradient(to top, ${col}, transparent)`,
+          });
+        } else {
+          make('div', 'tl-conn', {
+            left:       (x - 0.75) + 'px',
+            top:        (CENTER_Y + DOT_R) + 'px',
+            height:     CONN_H + 'px',
+            background: `linear-gradient(to bottom, ${col}, transparent)`,
+          });
+        }
+
+        // Card — no maxHeight so full content is always visible
+        const card = make('div', `tl-card ${ev._isAbove ? 'above' : 'below'}`, {
+          left:  x + 'px',
+          width: CARD_W + 'px',
+          // above: anchor bottom at ABOVE_BTM, grows upward (needs CARD_AREA headroom)
+          // below: anchor top at BELOW_TOP, grows downward
+          ...(ev._isAbove
+            ? { bottom: (TRACK_H - ABOVE_BTM) + 'px' }
+            : { top:    BELOW_TOP + 'px' }),
+        });
+
+        card.innerHTML = `
+          <div class="card-badge" style="background:${g}">
+            ${ev.type === 'education' ? 'Education' : 'Career'}
+          </div>
+          <div class="card-title">${ev.title}</div>
+          <div class="card-sub">${ev.sub}</div>
+          <p class="card-desc">${ev.desc}</p>
+        `;
+
+        setTimeout(() => card.classList.add('visible'), 65 * idx);
       });
     }
 
-    function scrollToYear(y){
-      const x = yearToX(y) - (window.innerWidth/2) + 250;
-      timeline.scrollTo({left:x,behavior:'smooth'});
+    function jumpToYear(y) {
+      const x = yearToX(y) - scroll.clientWidth / 2;
+      scroll.scrollTo({ left: Math.max(0, x), behavior: 'smooth' });
     }
 
-    function setActive(btn){[btnAll,btnCareer,btnEdu].forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
-    btnAll.addEventListener('click', ()=>{ setActive(btnAll); renderEvents(null); });
-    btnCareer.addEventListener('click', ()=>{ setActive(btnCareer); renderEvents('career'); });
-    btnEdu.addEventListener('click', ()=>{ setActive(btnEdu); renderEvents('education'); });
+    /* ── Filter buttons ────────────────────────────────────── */
+    const btnAll    = document.getElementById('btn-all');
+    const btnCareer = document.getElementById('btn-career');
+    const btnEdu    = document.getElementById('btn-edu');
 
-    timeline.addEventListener('keydown', (e)=>{
-      if(e.key === 'ArrowRight') timeline.scrollBy({left:400,behavior:'smooth'});
-      if(e.key === 'ArrowLeft') timeline.scrollBy({left:-400,behavior:'smooth'});
-    });
+    function setActive(btn) {
+      [btnAll, btnCareer, btnEdu].forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
 
-    renderRuler(); setActive(btnAll); renderEvents(null);
+    btnAll.addEventListener('click',    () => { setActive(btnAll);    render(null); });
+    btnCareer.addEventListener('click', () => { setActive(btnCareer); render('career'); });
+    btnEdu.addEventListener('click',    () => { setActive(btnEdu);    render('education'); });
 
-    window.TIMELINE = { add(ev){ events.push(ev); location.reload(); }, events, minYear, maxYear };
+    render(null);
+  })();
   </script>
 </body>
 </html>
