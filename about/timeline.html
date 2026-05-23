@@ -169,7 +169,7 @@
 
     .card-badge {
       display: inline-block;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.6px;
@@ -256,13 +256,13 @@
         year: 2020, type: 'education', place: 'down',
         title: 'High School Graduation',
         sub:   'Lyceum Diploma',
-        desc:  'Grade 19.33 / 20 (Excellent). Focus: Mathematics & Sciences.'
+        desc:  'Grade 19.33 / 20 (Excellent). <br> Focus: Positive Sciences.'
       },
       {
         year: 2021, type: 'education', place: 'up',
         title: 'Started University',
         sub:   'BSc Computer Engineering — UCY',
-        desc:  'Admitted to Electrical & Computer Engineering at the University of Cyprus. Achieved 1st place in the Pancyprian Examinations.'
+        desc:  'Admitted to Electrical & Computer Engineering at the University of Cyprus. Achieved 1st place in the Pancyprian Entrance Examinations.'
       },
       {
         year: 2023, type: 'career', place: 'down',
@@ -474,22 +474,20 @@
     btnEdu.addEventListener('click',    () => { setActive(btnEdu);    render('education'); });
 
     /* ── Mousewheel → smooth horizontal scroll ────────────── */
-    let wTarget = 0;
-    let wRaf    = null;
+    let wVel = 0;
+    let wRaf = null;
     function wStep() {
-      const d = wTarget - scroll.scrollLeft;
-      if (Math.abs(d) < 0.5) { scroll.scrollLeft = wTarget; wRaf = null; return; }
-      scroll.scrollLeft += d * 0.11;
+      scroll.scrollLeft += wVel;
+      wVel *= 0.86;
+      const atBound = scroll.scrollLeft <= 0 ||
+                      scroll.scrollLeft >= scroll.scrollWidth - scroll.clientWidth - 1;
+      if (Math.abs(wVel) < 0.3 || atBound) { wVel = 0; wRaf = null; return; }
       wRaf = requestAnimationFrame(wStep);
     }
-    scroll.addEventListener('scroll', () => { if (!wRaf) wTarget = scroll.scrollLeft; });
     scroll.addEventListener('wheel', e => {
       if (e.deltaY !== 0) {
         e.preventDefault();
-        wTarget = Math.max(0, Math.min(
-          scroll.scrollWidth - scroll.clientWidth,
-          wTarget + e.deltaY * 1.5
-        ));
+        wVel += e.deltaY * 0.25;
         if (!wRaf) wRaf = requestAnimationFrame(wStep);
       }
     }, { passive: false });
