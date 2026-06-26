@@ -34,7 +34,7 @@
         flex-direction:column;
         gap:.7rem;
       }
-      .project-card h3 { margin:0 0 .25rem; font-size:1.15rem; }
+      .project-card h3 { margin:0 0 .25rem; font-size:1.15rem; font-variant-numeric:lining-nums; font-feature-settings:"lnum" 1; }
       .project-meta { font-size:.7rem; text-transform:uppercase; letter-spacing:.15em; color:#bbb; padding-right:9rem; }
       .project-type {
         position:absolute; top:1rem; right:1rem;
@@ -98,7 +98,7 @@
 
         <div class="wrapper">
           <div class="inner">
-            
+
             <!-- Filters -->
             <div class="filters" id="filters">
               <button data-filter="all" class="active">All</button>
@@ -109,20 +109,11 @@
               <button data-filter="software">Software</button>
               <button data-filter="ml">ML</button>
               <button data-filter="web">Web</button>
-              <!-- <button data-filter="all" class="active">All</button>
-              <button data-filter="research">Research</button>
-              <button data-filter="ml">Machine Learning</button>
-              <button data-filter="architecture">Computer Architecture</button>
-              <button data-filter="hardware">Hardware / FPGA</button>
-              <button data-filter="systems">Systems &amp; Networking</button>
-              <button data-filter="software">Software</button>
-              <button data-filter="web">Web</button> -->
             </div>
 
             <!-- Projects Grid -->
             <div class="projects-grid" id="projectsGrid">
 
-              <!-- ===== Initial projects ===== -->
               <article class="project-card" data-category="research ml">
                 <span class="project-type research">Research · Bachelor Thesis</span>
                 <div class="project-meta">Research · 2024-2025</div>
@@ -144,88 +135,13 @@
                 <a href="https://github.com/giorgoskekkou/ServerlessWorkflowFunctionConverter" class="button small">Code</a>
               </article>
 
-              <article class="project-card" data-category="software">
-                <span class="project-type coursework">Coursework · ECE 318</span>
-                <div class="project-meta">Software · 2023</div>
-                <h3>Cyber Threat Incident Dashboard</h3>
-                <p>Interactive dashboard in Java with a MySQL database for 200K+ network security records, enabling prioritized incident triage.</p>
-                <div class="project-tags">
-                  <span>Java</span><span>JavaFX</span><span>MySQL</span><span>GUI</span><span>OOP</span>
-                </div>
-                <a href="../projects/ctid.html" class="button small">Details</a>
-              </article>
-
-              <article class="project-card" data-category="web software">
-                <span class="project-type coursework">Coursework · ECE 317</span>
-                <div class="project-meta">Web · 2024</div>
-                <h3>Tire Service on the spot</h3>
-                <p>Full-stack web application for managing appointments and services for tire shop.</p>
-                <div class="project-tags">
-                  <span>Python</span><span>Flask</span><span>SQLite</span>
-                </div>
-                <a href="../projects/tire.html" class="button small">Details</a>
-              </article>
-
-              <!-- ===== Bridge project ===== -->
-              <article class="project-card" data-category="web software">
-                <span class="project-type personal">Personal</span>
-                <div class="project-meta">Web · 2023</div>
-                <h3>Automated Web Bots with Selenium</h3>
-                <p>Browser-automation bots built with Selenium for repetitive web tasks such as form submission, navigation, and data scraping. Bots can auto-start on a schedule to run at a requested time, and are containerized for easy build and deployment with Docker.</p>
-                <div class="project-tags">
-                  <span>Python</span><span>Selenium</span><span>Web Automation</span><span>Scraping</span><span>Scheduling</span><span>Docker</span>
-                </div>
-              </article>
-
-              <!-- ===== Coursework projects (200 level) ===== -->
-              <article class="project-card" data-category="hardware">
-                <span class="project-type coursework">Coursework · ECE 211</span>
-                <div class="project-meta">Hardware / FPGA · 2022</div>
-                <h3>FPGA Car Control System</h3>
-                <p>Control system for a toy car featuring a 4-gear gearbox, PWM-based speed control, FSM state management, and a seven-segment display for gear and time.</p>
-                <div class="project-tags">
-                  <span>Digital Design</span><span>FSM</span><span>PWM</span><span>FPGA</span><span>Altera Quartus</span>
-                </div>
-              </article>
-
-              <article class="project-card" data-category="architecture software">
-                <span class="project-type coursework">Coursework · ECE 213</span>
-                <div class="project-meta">Computer Organization · 2023</div>
-                <h3>MIPS Assembly Quiz System</h3>
-                <p>Interactive quiz system written in MIPS32 assembly. Reads quiz data from a file and adds a timer and keyboard listener by modifying the exception handler.</p>
-                <div class="project-tags">
-                  <span>MIPS32 Assembly</span><span>Exceptions</span><span>File I/O</span><span>Assembler</span>
-                </div>
-              </article>
-
-              <article class="project-card" data-category="architecture hardware">
-                <span class="project-type coursework">Coursework · ECE 213</span>
-                <div class="project-meta">Computer Organization · 2023</div>
-                <h3>16-bit RISC Microprocessor (MIPS-16)</h3>
-                <p>Full microarchitecture of a 16-bit RISC processor — ALU, register file, RAM, and an FSM control unit — supporting R, I, and J instruction types across 15 instructions. Verified in simulation and emulated on FPGA.</p>
-                <div class="project-tags">
-                  <span>Digital Design</span><span>FSM</span><span>Control Unit</span><span>FPGA</span><span>Altera Quartus</span>
-                </div>
-              </article>
-
-              <!-- ===== Coursework projects (300 level) ===== -->
-              <article class="project-card" data-category="hardware">
-                <span class="project-type coursework">Coursework · ECE 307</span>
-                <div class="project-meta">Hardware / VLSI Design · 2024</div>
-                <h3>Custom VLSI Cell Library &amp; ALU</h3>
-                <p>Cell library built in Magic VLSI — inverter, basic gates, and a full adder — plus basic blocks such as encoders, multiplexers, latches, and flip-flops, and a complete ALU with datapath, all verified in IRSIM.</p>
-                <div class="project-tags">
-                  <span>VLSI</span><span>Magic</span><span>IRSIM</span><span>ALU</span><span>Layout</span>
-                </div>
-              </article>
-
               <article class="project-card" data-category="architecture software">
                 <span class="project-type coursework">Coursework · ECE 314</span>
                 <div class="project-meta">Computer Architecture · 2023</div>
-                <h3>Cycle-Accurate MIPS Processor Simulators</h3>
-                <p>MIPS processor simulators built across four labs — single-cycle, multi-cycle, and pipelined designs, the last including hazard detection and a forwarding unit.</p>
+                <h3>Cycle-Accurate RISC Processor Simulators</h3>
+                <p>RISC processor simulators built across four labs: single-cycle, multi-cycle, and pipelined designs, the last including hazard detection and a forwarding unit.</p>
                 <div class="project-tags">
-                  <span>C++</span><span>OOP</span><span>MIPS</span><span>Pipelining</span><span>Hazard Detection</span><span>Makefile</span>
+                  <span>C++</span><span>OOP</span><span>RISC</span><span>Pipelining</span><span>Hazard Detection</span><span>Parser</span>
                 </div>
               </article>
 
@@ -243,20 +159,59 @@
                 <span class="project-type coursework">Coursework · ECE 316</span>
                 <div class="project-meta">Systems · 2024</div>
                 <h3>Operating Systems &amp; Network Programming</h3>
-                <p>Multiprocessing, multithreading, and socket programming — IPC with pipes, mutex and condition-variable synchronization, a Round-Robin scheduler, Banker's algorithm, dining philosophers, and a final client-server chat application.</p>
+                <p>Multiprocessing, multithreading, and socket programming: IPC with pipes, mutex and condition-variable synchronization, a Round-Robin scheduler, Banker's algorithm, dining philosophers, and a final client-server chat application.</p>
                 <div class="project-tags">
-                  <span>C</span><span>pthreads</span><span>Sockets</span><span>IPC</span><span>Scheduling</span><span>Concurrency</span>
+                  <span>C/C++</span><span>Parallelism</span><span>Concurrency</span><span>pthreads</span><span>Sockets</span><span>IPC</span><span>Scheduling</span>
                 </div>
               </article>
 
-              <!-- ===== Coursework projects (400 level) ===== -->
               <article class="project-card" data-category="hardware">
                 <span class="project-type coursework">Coursework · ECE 408</span>
                 <div class="project-meta">Hardware / FPGA · 2025</div>
                 <h3>FPGA System Design in VHDL</h3>
-                <p>VHDL designs on Xilinx Vivado and Vitis — adders, counters, an FSM combination lock, a memory controller with matrix multiplication, a VGA video controller, and histogram-equalization image processing, all verified on FPGA.</p>
+                <p>VHDL designs on Xilinx Vivado and Vitis: adders, counters, an FSM combination lock, a memory controller with matrix multiplication, a VGA video controller, and histogram-equalization image processing, all verified on FPGA.</p>
                 <div class="project-tags">
                   <span>VHDL</span><span>Xilinx Vivado</span><span>FPGA</span><span>Memory Controller</span><span>VGA</span>
+                </div>
+              </article>
+
+              <article class="project-card" data-category="hardware">
+                <span class="project-type coursework">Coursework · ECE 307</span>
+                <div class="project-meta">Hardware / VLSI Design · 2024</div>
+                <h3>Custom VLSI Cell Library &amp; ALU</h3>
+                <p>Cell library built in Magic VLSI (inverter, basic gates, and a full adder), plus basic blocks such as encoders, multiplexers, latches, and flip-flops, and a complete ALU with datapath, all verified in IRSIM.</p>
+                <div class="project-tags">
+                  <span>VLSI</span><span>Magic</span><span>IRSIM</span><span>ALU</span><span>Layout</span>
+                </div>
+              </article>
+
+              <article class="project-card" data-category="architecture hardware">
+                <span class="project-type coursework">Coursework · ECE 213</span>
+                <div class="project-meta">Computer Organization · 2023</div>
+                <h3>Developed a 16-bit RISC Microprocessor (MIPS-16)</h3>
+                <p>Full microarchitecture of a 16-bit RISC processor (ALU, register file, RAM, and an FSM control unit) supporting R, I, and J instruction types across 15 instructions. Verified in simulation and emulated on FPGA.</p>
+                <div class="project-tags">
+                  <span>Digital Design</span><span>VHDL</span><span>FSM</span><span>Control Unit</span><span>FPGA</span><span>Altera Quartus</span>
+                </div>
+              </article>
+
+              <article class="project-card" data-category="hardware">
+                <span class="project-type coursework">Coursework · ECE 211</span>
+                <div class="project-meta">Hardware / FPGA · 2022</div>
+                <h3>FPGA Car Control System</h3>
+                <p>Control system for a toy car featuring a 4-gear gearbox, PWM-based speed control, FSM state management, and a seven-segment display for gear and time.</p>
+                <div class="project-tags">
+                  <span>Digital Design</span><span>FSM</span><span>PWM</span><span>FPGA</span><span>Altera Quartus</span>
+                </div>
+              </article>
+
+              <article class="project-card" data-category="architecture software">
+                <span class="project-type coursework">Coursework · ECE 213</span>
+                <div class="project-meta">Computer Organization · 2023</div>
+                <h3>Assembly Quiz System</h3>
+                <p>Interactive quiz system written in MIPS32 assembly. Reads quiz data from a file and adds a timer and keyboard listener by modifying the exception handler.</p>
+                <div class="project-tags">
+                  <span>MIPS32 Assembly</span><span>Exceptions</span><span>File I/O</span><span>Assembler</span>
                 </div>
               </article>
 
@@ -268,6 +223,38 @@
                 <div class="project-tags">
                   <span>Python</span><span>Neural Networks</span><span>SVM</span><span>PCA</span><span>Reinforcement Learning</span>
                 </div>
+              </article>
+
+              <article class="project-card" data-category="web software">
+                <span class="project-type personal">Personal</span>
+                <div class="project-meta">Web · 2023</div>
+                <h3>Automated Web Bots with Selenium</h3>
+                <p>Browser-automation bots built with Selenium for repetitive web tasks such as form submission, navigation, and data scraping. Bots can auto-start on a schedule to run at a requested time, and are containerized for easy build and deployment with Docker.</p>
+                <div class="project-tags">
+                  <span>Python</span><span>Selenium</span><span>Web Automation</span><span>Scraping</span><span>Scheduling</span><span>Docker</span>
+                </div>
+              </article>
+
+              <article class="project-card" data-category="web software">
+                <span class="project-type coursework">Coursework · ECE 317</span>
+                <div class="project-meta">Web · 2024</div>
+                <h3>Tire Service on the spot</h3>
+                <p>Full-stack web application for managing appointments and services for tire shop.</p>
+                <div class="project-tags">
+                  <span>Python</span><span>Flask</span><span>SQLite</span>
+                </div>
+                <a href="../projects/tire.html" class="button small">Details</a>
+              </article>
+
+              <article class="project-card" data-category="software">
+                <span class="project-type coursework">Coursework · ECE 318</span>
+                <div class="project-meta">Software · 2023</div>
+                <h3>Cyber Threat Incident Dashboard</h3>
+                <p>Interactive dashboard in Java with a MySQL database for 200K+ network security records, enabling prioritized incident triage.</p>
+                <div class="project-tags">
+                  <span>Java</span><span>JavaFX</span><span>MySQL</span><span>GUI</span><span>OOP</span>
+                </div>
+                <a href="../projects/ctid.html" class="button small">Details</a>
               </article>
 
             </div>
