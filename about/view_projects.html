@@ -34,7 +34,7 @@
         flex-direction:column;
         gap:.7rem;
       }
-      .project-card h3 { margin:0 0 .25rem; font-size:1.15rem; font-variant-numeric:lining-nums; font-feature-settings:"lnum" 1; }
+      .project-card h3 { margin:0 0 .25rem; font-size:1.15rem; font-variant-numeric:lining-nums; font-feature-settings:"lnum" 1; text-transform:none; }
       .project-meta { font-size:.7rem; text-transform:uppercase; letter-spacing:.15em; color:#bbb; padding-right:9rem; }
       .project-type {
         position:absolute; top:1rem; right:1rem;
@@ -55,6 +55,9 @@
         border-top: 1px solid rgba(255, 255, 255, 0.25);
       }
       .hidden { display:none !important; }
+      #wrapper > header p { text-transform:none; letter-spacing:normal; }
+      .card-actions { display:flex; gap:.5rem; }
+      .card-actions .button { flex:1; padding:0 1em; }
     </style>
   </head>
   <body class="is-preload">
@@ -127,12 +130,15 @@
               <article class="project-card" data-category="research systems">
                 <span class="project-type research">Research · Internship</span>
                 <div class="project-meta">Research · Summer 2024</div>
-                <h3>Texas A&amp;M Project: Serverless Workflow Function Converter</h3>
-                <p>Compiler-based tool that merges serverless functions to run inside a single container, deployed on a Knative cluster.</p>
+                <h3>Serverless Workflow Function Converter</h3>
+                <p>Compiler-based tool that merges serverless functions to run inside a single container, deployed on a Knative cluster. Built during a research internship at Texas A&amp;M University.</p>
                 <div class="project-tags">
                   <span>Python</span><span>Compilers</span><span>Knative</span><span>Serverless</span><span>Containers</span><span>Cloud</span>
                 </div>
-                <a href="https://github.com/giorgoskekkou/ServerlessWorkflowFunctionConverter" class="button small">Code</a>
+                <div class="card-actions">
+                  <a href="https://github.com/giorgoskekkou/ServerlessWorkflowFunctionConverter" class="button small">Code</a>
+                  <a href="../images/projects/bachelor_thesis_poster.png" class="button small">Poster</a>
+                </div>
               </article>
 
               <article class="project-card" data-category="architecture software">

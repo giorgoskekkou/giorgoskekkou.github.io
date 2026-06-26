@@ -5,7 +5,7 @@ Current order of project cards on `about/view_projects.html` (14 active cards).
 | # | Title | Badge | Meta (domain · year) | Categories |
 |---|---|---|---|---|
 | 1 | Predicting Hard-to-Detect Faults with Machine Learning | Research · Bachelor Thesis | Research · 2024-2025 | research, ml |
-| 2 | Texas A&M Project: Serverless Workflow Function Converter | Research · Internship | Research · Summer 2024 | research, systems |
+| 2 | Serverless Workflow Function Converter | Research · Internship | Research · Summer 2024 | research, systems |
 | 3 | Cycle-Accurate RISC Processor Simulators | Coursework · ECE 314 | Computer Architecture · 2023 | architecture, software |
 | 4 | Configurable Cache Simulator | Coursework · ECE 314 | Computer Architecture · 2023 | architecture, software |
 | 5 | Operating Systems & Network Programming | Coursework · ECE 316 | Systems · 2024 | systems, software |
